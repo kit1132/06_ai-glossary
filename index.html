@@ -19,6 +19,7 @@
    ・書体は --f-display / --f-body / --f-mono。新しい色・書体は足さない
    ・狭い画面でも同じトークンを移植する（再デザイン禁止）
      面は --vN-soft、文字は --vN-ink、ベタ --vN は端の帯だけ
+   ・4社対応表は1件の見出しの下に4社を横並びにする（列順はデスクトップと同じ）
    ============================================================ */
 :root{
   /* 紙とインク（暖色ニュートラル） */
@@ -483,33 +484,40 @@ a:hover{color:var(--ink);}
   .tbl--slim:has(thead th:nth-child(3)) .r-key{white-space:normal;padding:10px 8px;font-size:12px;}
   .tbl--slim:has(thead th:nth-child(3)) td{padding:10px 8px;}
 
-  /* --- §02–04 広い4社表：行カード型 --- */
+  /* --- §02–04 広い4社表：1件の見出しの下に4社を横並び --- */
   .tbl--wide{min-width:0;display:block;}
   .tbl--wide thead{display:none;}
   .tbl--wide tbody{display:block;}
   .tbl--wide tbody tr[data-row]{
-    display:block;margin-bottom:12px;
+    display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+    margin-bottom:12px;
     border:1px solid var(--rule);border-radius:var(--r);
     background:var(--card);overflow:hidden;
   }
-  .tbl--wide tbody tr[data-row] > *{border-bottom:1px solid var(--rule);}
   .tbl--wide .r-key{
-    display:block;border-bottom:1px solid var(--rule-2);
-    border-right:0;padding:12px 14px;
+    grid-column:1/-1;display:block;
+    border-bottom:1px solid var(--rule-2);border-right:0;
+    padding:10px 12px;white-space:normal;
   }
   .tbl--wide tbody td[data-v]{
-    display:block;border-left:0;padding:0 14px 12px;
+    display:block;min-width:0;overflow:visible;
+    border-bottom:0;border-left:1px solid var(--rule);
+    padding:0 5px 8px;
   }
-  .tbl--wide tbody td[data-v]:last-child{border-bottom:0;}
+  .tbl--wide tbody td[data-v="v1"]{border-left:0;}
   .tbl--wide tbody td[data-v]::before{
-    display:block;margin:0 -14px 8px;padding:7px 10px;
-    font-family:var(--f-display);font-weight:700;font-size:12.5px;line-height:1.4;
-    border-left:4px solid transparent;
+    display:block;margin:0 -5px 6px;padding:5px 2px 4px;
+    font-family:var(--f-display);font-weight:700;font-size:9px;line-height:1.2;
+    text-align:center;overflow-wrap:anywhere;
   }
-  .tbl--wide tbody td[data-v="v1"]::before{content:"ChatGPT";background:var(--v1-soft);color:var(--v1-ink);border-left-color:var(--v1);}
-  .tbl--wide tbody td[data-v="v2"]::before{content:"Gemini";background:var(--v2-soft);color:var(--v2-ink);border-left-color:var(--v2);}
-  .tbl--wide tbody td[data-v="v3"]::before{content:"Claude";background:var(--v3-soft);color:var(--v3-ink);border-left-color:var(--v3);}
-  .tbl--wide tbody td[data-v="v4"]::before{content:"Copilot";background:var(--v4-soft);color:var(--v4-ink);border-left-color:var(--v4);}
+  .tbl--wide tbody td[data-v="v1"]::before{content:"ChatGPT";background:var(--v1-soft);color:var(--v1-ink);box-shadow:inset 0 3px 0 var(--v1);}
+  .tbl--wide tbody td[data-v="v2"]::before{content:"Gemini";background:var(--v2-soft);color:var(--v2-ink);box-shadow:inset 0 3px 0 var(--v2);}
+  .tbl--wide tbody td[data-v="v3"]::before{content:"Claude";background:var(--v3-soft);color:var(--v3-ink);box-shadow:inset 0 3px 0 var(--v3);}
+  .tbl--wide tbody td[data-v="v4"]::before{content:"Copilot";background:var(--v4-soft);color:var(--v4-ink);box-shadow:inset 0 3px 0 var(--v4);}
+  .tbl--wide tbody td[data-v] .term{font-size:11px;}
+  .tbl--wide tbody td[data-v] .term.ja{font-size:11px;}
+  .tbl--wide tbody td[data-v] .gloss{font-size:10px;line-height:1.45;}
+  .tbl--wide .price{white-space:normal;}
 
   /* --- §07 ルール表（2列）：行カード型 --- */
   .tbl--slim:not(:has(thead th:nth-child(3))){min-width:0;display:block;}
@@ -564,10 +572,14 @@ a:hover{color:var(--ink);}
   .tbl--wide thead,.tbl--slim thead,.tbl--slim:not(:has(thead th:nth-child(3))) thead{display:table-header-group;}
   .tbl--wide tbody,.tbl--slim tbody,.tbl--slim:not(:has(thead th:nth-child(3))) tbody{display:table-row-group;}
   .tbl--wide tbody tr[data-row],.tbl--slim tbody tr[data-row],
-  .tbl--slim:not(:has(thead th:nth-child(3))) tbody tr[data-row]{display:table-row;margin:0;border:0;border-radius:0;overflow:visible;}
-  .tbl--wide .r-key,.tbl--slim .r-key,.tbl--slim:not(:has(thead th:nth-child(3))) .r-key{display:table-cell;}
+  .tbl--slim:not(:has(thead th:nth-child(3))) tbody tr[data-row]{display:table-row;margin:0;border:0;border-radius:0;overflow:visible;grid-template-columns:none;}
+  .tbl--wide .r-key,.tbl--slim .r-key,.tbl--slim:not(:has(thead th:nth-child(3))) .r-key{display:table-cell;grid-column:auto;}
   .tbl--wide tbody td[data-v],.tbl--slim td,.tbl--slim:not(:has(thead th:nth-child(3))) td{display:table-cell;}
   .tbl--wide tbody td[data-v]::before{content:none;display:none;}
+  .tbl--wide tbody td[data-v] .term{font-size:12.5px;}
+  .tbl--wide tbody td[data-v] .term.ja{font-size:13px;}
+  .tbl--wide tbody td[data-v] .gloss{font-size:11.5px;line-height:1.6;}
+  .tbl--wide .price{white-space:nowrap;}
   /* 印刷はデスクトップ正本どおり、見出し帯をベタ＋白文字に戻す */
   .tally-mx-h{color:#FFFFFF;}
   .tally-mx-tbl thead th[data-v]{border-left-color:rgba(255,255,255,.45);box-shadow:none;}
