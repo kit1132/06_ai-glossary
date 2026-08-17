@@ -58,6 +58,7 @@ a:hover{color:var(--ink);}
 
 .doc{max-width:1120px;margin:0 auto;padding:0 clamp(14px,3.6vw,36px) 88px;}
 .mono{font-family:var(--f-mono);}
+.nowrap{white-space:nowrap;}
 .eyebrow{
   font-family:var(--f-mono);font-size:11px;letter-spacing:.2em;
   text-transform:uppercase;color:var(--ink-2);margin:0;line-height:1.6;
@@ -90,7 +91,7 @@ a:hover{color:var(--ink);}
   margin:15px 0 20px;
 }
 .lede{
-  max-width:54ch;margin:0;font-size:clamp(15px,1.5vw,16.5px);
+  margin:0;font-size:clamp(15px,1.5vw,16.5px);
   color:var(--ink-2);line-height:1.95;text-wrap:pretty;
 }
 .mast-meta{
@@ -297,7 +298,7 @@ a:hover{color:var(--ink);}
 .tag--hot{background:var(--frame);border-color:var(--frame);color:var(--paper-2);}
 .sec-note{
   font-size:13.5px;color:var(--ink-2);margin:0 0 20px;padding:0 4px;
-  max-width:68ch;line-height:1.9;text-wrap:pretty;
+  line-height:1.9;text-wrap:pretty;
 }
 .sec-note b{color:var(--ink);font-weight:700;}
 .sec-foot{font-size:12.5px;color:var(--ink-2);margin:20px 0 0;padding:0 4px;line-height:1.7;text-wrap:pretty;}
@@ -396,7 +397,7 @@ a:hover{color:var(--ink);}
 .stamp-hd b{font-family:var(--f-display);font-weight:700;font-size:14.5px;letter-spacing:.01em;}
 .stamp-hd .mono{font-size:10px;letter-spacing:.16em;opacity:.72;text-transform:uppercase;}
 .stamp-bd{padding:16px 20px 18px;}
-.stamp-bd ul{margin:0;padding-left:1.2em;font-size:13.5px;line-height:1.9;color:var(--ink-2);}
+.stamp-bd ul{margin:0;padding-left:1.2em;font-size:13.5px;line-height:1.9;color:var(--ink-2);text-wrap:pretty;}
 .stamp-bd li + li{margin-top:9px;}
 .stamp-bd b{color:var(--ink);font-weight:700;}
 
@@ -436,7 +437,7 @@ a:hover{color:var(--ink);}
   background:var(--card);border:1px solid var(--rule);border-radius:var(--r-lg);
   padding:24px clamp(20px,3.4vw,32px) 26px;margin-top:48px;
 }
-.colophon p{margin:0 0 9px;}
+.colophon p{margin:0 0 9px;text-wrap:pretty;}
 .colophon b{color:var(--ink);font-weight:700;}
 .colophon code{font-family:var(--f-mono);font-size:11.5px;}
 
@@ -566,7 +567,7 @@ a:hover{color:var(--ink);}
   <div class="mast">
     <p class="eyebrow">Quick Reference / 2026.08</p>
     <h1 class="mast-title">生成AI<br />用語早見表</h1>
-    <p class="lede">同じことをする機能でも、会社ごとに呼び名が違います。この表は「やりたいこと」から4社の名前を引くためのものです。用語の意味より先に、対応関係を押さえてください。</p>
+    <p class="lede">同じことをする機能でも、会社ごとに呼び名が違います。この表は「やりたい&#x2060;こと」から4社の名前を引くためのものです。用語の意味より先に、対応関係を押さえてください。</p>
     <p class="mast-meta">対象：ChatGPT / Gemini / Claude / Microsoft Copilot　　情報取得時点：2026年8月17日</p>
     <div class="mast-foot">
     <div class="byline">
@@ -605,13 +606,13 @@ a:hover{color:var(--ink);}
     <h2 class="sec-title">はじめに：この表が答えること</h2>
     <span class="tag">安定</span>
   </div>
-  <p class="sec-note">この表が答えるのは「あの機能は、この会社では何と呼ぶのか」の一点です。用語の意味を集めた辞典ではなく、<b>4社の呼び名を突き合わせるための対応表</b>です。全体は 01 から 07 までの7つの節でできていますが、<b>上から順に読む必要はありません。</b>いま困っている場面から、下の4つのどれかに進んでください。</p>
+  <p class="sec-note">この表が答えるのは<span class="nowrap">「あの機能は、この会社では何と&#x2060;呼ぶのか」</span>の一点です。用語の意味を集めた辞典ではなく、<b>4社の&#x2060;呼び名を突き合わせるための対応表</b>です。全体は 01&nbsp;から&nbsp;07 までの7つの節でできていますが、<b>上から順に読む必要はありません。</b>いま困っている場面から、下の4つのどれかに進んでください。</p>
 
   <div class="cards">
     <div class="card">
       <span class="card-no">CASE 1</span>
       <h3 class="card-h">呼び名を引く</h3>
-      <p class="card-p">やりたいことは決まっているのに、その会社での名前が出てこないとき。表紙の検索窓に打ち込んでも引けます。</p>
+      <p class="card-p">やりたいことは決まっているのに、その会社での名前が出てこないとき。表紙の検索&#x2060;窓に打ち込んでも引けます。</p>
       <div class="card-eg">02 やりたいこと → 4社の呼び名</div>
     </div>
     <div class="card">
@@ -689,10 +690,10 @@ a:hover{color:var(--ink);}
       </tbody>
     </table>
   </div>
-  <p class="tally-mx-cap">「やりたいこと」17は対応表の行数です。「4社の呼び名」は名称があるセル数で、提供終了も含みます。名称がないセルは数えません。「共通のことば」24は概念の語数で、4社の製品名ではありません。合計は上4つの和です。</p>
+  <p class="tally-mx-cap">「やりたい&#x2060;こと」17は対応表の行数です。「4社の&#x2060;呼び名」は名称があるセル数で、提供終了も含みます。名称がないセルは数えません。「共通の&#x2060;ことば」24は概念の語数で、4社の製品名ではありません。合計は上4つの和です。</p>
 
-  <p class="sec-foot"><b>4社はどの表でも ChatGPT&nbsp;→&nbsp;Gemini&nbsp;→&nbsp;<wbr>Claude&nbsp;→&nbsp;Copilot の順で、同じ色と&#x2060;同じ印で並びます。</b>上の検索窓に打ち込むと表を絞り込めます。画面では、その右の会社名を押すとその1社だけを残せます。もう一度押すと戻ります。</p>
-  <p class="sec-foot"><b>節の右肩のタグは、その内容がどれくらいで古くなるかの目安です。</b>「安定」は年単位で変わりません。「中期」は年に何度か動きます。「揮発」はモデル名と料金で、数週間で変わるため、引用する前に各社の公式ページで確かめてください。まず 01 を読むと、以降の表を読む前提が分かります。</p>
+  <p class="sec-foot"><b>4社はどの表でも ChatGPT&nbsp;→&nbsp;Gemini&nbsp;→&nbsp;<wbr>Claude&nbsp;→&nbsp;Copilot の順で、同じ色と&#x2060;同じ印で並びます。</b>上の&#x2060;検索&#x2060;窓に打ち込むと表を絞り込めます。画面では、その右の会社名を押すとその1社だけを残せます。<span class="nowrap">もう一度押すと戻ります。</span></p>
+  <p class="sec-foot"><b>節の右肩のタグは、その内容がどれくらいで古くなるかの目安です。</b>「安定」は年単位で変わりません。「中期」は年に何度か動きます。「揮発」はモデル名と料金で、数週間で変わるため、引用する前に各社の公式ページで確かめて&#x2060;ください。まず 01 を読むと、以降の表を読む前提が分かります。</p>
 </section>
 
 <section class="sec">
@@ -701,7 +702,7 @@ a:hover{color:var(--ink);}
     <h2 class="sec-title">最初のつまずき：同じ言葉が4つの意味を持つ</h2>
     <span class="tag">安定</span>
   </div>
-  <p class="sec-note">同じ機能に4つの名前がつくのがこの表の前提です。つまずきはその逆にもあります。「Gemini を使う」と言ったとき、アプリの話かAI本体の話かは文脈でしか分かりません。GoogleとAnthropicは、会社の看板・AI本体・アプリの名前がすべて同じ単語です。この4層を分けないと、以降の表は読めません。</p>
+  <p class="sec-note">同じ機能に4つの名前がつくのがこの表の前提です。つまずきはその逆にもあります。「Gemini を使う」と言った&#x2060;とき、アプリの話かAI本体の話かは文脈でしか分かりません。GoogleとAnthropicは、会社の看板・AI本体・アプリの名前がすべて同じ単語です。この4層を分けないと、以降の表は読めません。</p>
 
   <div class="cards">
     <div class="card">
@@ -729,7 +730,7 @@ a:hover{color:var(--ink);}
       <div class="card-eg">Plus / Google AI Pro<br />Claude Pro</div>
     </div>
   </div>
-  <p class="sec-foot"><b>Copilot だけ構造が違います。</b>Microsoft は自社のAI本体を持たず、OpenAI と Anthropic のモデルを切り替えて使っています。「Copilot」は看板の名前であって、AI本体の名前ではありません。</p>
+  <p class="sec-foot"><b>Copilot だけ構造が違います。</b>Microsoft は自社のAI本体を持たず、OpenAI&nbsp;と&nbsp;Anthropic のモデルを切り替えて使っています。「Copilot」は看板の名前であって、AI本体の名前ではありません。</p>
 </section>
 
 <section class="sec">
@@ -738,7 +739,7 @@ a:hover{color:var(--ink);}
     <h2 class="sec-title">やりたいこと → 4社の呼び名</h2>
     <span class="tag">中期</span>
   </div>
-  <p class="sec-note">左の列から探してください。<b>同じ行に並んでいても、できることの範囲は同じではありません。</b>「使う場所が同じ」という意味であって、置き換えられるという意味ではない点に注意してください。</p>
+  <p class="sec-note">左の列から探してください。<b>同じ行に並んでいても、できることの範囲は同じではありません。</b>「使う場所が同じ」と&#x2060;いう意味であって、置き換えられると&#x2060;いう意味ではない点に注意してください。</p>
 
   <div class="tblbox">
     <table class="tbl tbl--wide">
@@ -941,7 +942,7 @@ a:hover{color:var(--ink);}
     <h2 class="sec-title">個人向けプランの料金</h2>
     <span class="tag tag--hot">揮発・必ず公式で確認</span>
   </div>
-  <p class="sec-note">すべて米ドルの月額です。<b>Copilot だけ性質が違います。</b>Microsoft の個人向けは単独のAI契約ではなく、Word や Excel とストレージが付いた Microsoft 365 のプランに含まれる形です。同じ約20ドルでも中身が違うため、横並びでは比べられません。</p>
+  <p class="sec-note">すべて米ドルの月額です。<b>Copilot だけ性質が違います。</b>Microsoft の個人向けは単独のAI契約ではなく、Word&nbsp;や&nbsp;Excel とストレージが付いた Microsoft&nbsp;365 のプランに含まれる形です。同じ約20ドルでも中身が違うため、横並びでは比べられません。</p>
 
   <div class="tblbox">
     <table class="tbl tbl--wide">
@@ -1001,9 +1002,9 @@ a:hover{color:var(--ink);}
     <div class="stamp-hd"><b>料金でよくある間違い</b><span class="mono">Check before you buy</span></div>
     <div class="stamp-bd">
       <ul>
-        <li><b>Copilot Pro（月20ドル）はもう買えません。</b>Microsoft は販売を終了し、既存契約のサポートも 2026年8月1日に終了しました。個人向けの後継は Microsoft 365 Premium です。</li>
-        <li><b>Microsoft 365 Copilot は単体で買えません。</b>必ず既存の Microsoft 365 ライセンスの上に追加する形なので、実費は表示価格の2〜3倍になります。</li>
-        <li><b>Claude の料金は2026年に改定されました。</b>Pro は月払い $22・年払い $18、Max は $110 からです。古い記事の「$20 / $100 / $200」は現在の金額ではありません。</li>
+        <li><b>Copilot Pro（月20ドル）はもう買えません。</b>Microsoft は販売を終了し、既存契約のサポートも 2026年8月1日に終了しました。個人向けの後継は Microsoft&nbsp;365 Premium です。</li>
+        <li><b>Microsoft&nbsp;365 Copilot は単体で買えません。</b>必ず既存の Microsoft&nbsp;365 ライセンスの上に追加する形なので、実費は表示価格の2〜&#x2060;3倍になります。</li>
+        <li><b>Claude の料金は2026年に改定されました。</b>Pro は月払い $22・年払い $18、Max は $110 からです。古い記事の<span class="nowrap">「$20 / $100 / $200」</span>は現在の金額ではありません。</li>
         <li>ChatGPT Business・Pro と Claude Team の金額は、公式ページでの直接確認ができていません。参考値として扱ってください。</li>
       </ul>
     </div>
@@ -1063,7 +1064,7 @@ a:hover{color:var(--ink);}
     <h2 class="sec-title">4社に共通することば</h2>
     <span class="tag">安定</span>
   </div>
-  <p class="sec-note">どのツールを使っても出てくる言葉です。上の検索窓でも絞り込めます。</p>
+  <p class="sec-note">どのツールを使っても出てくる言葉です。上の&#x2060;検索&#x2060;窓でも絞り込めます。</p>
 
   <div class="grp" data-group="1">
     <h3 class="grp-h">まず知っておく</h3>
