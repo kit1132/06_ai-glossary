@@ -545,6 +545,15 @@ a:hover{color:var(--ink);}
   .tbl thead{display:table-header-group;}
   .tbl tr{break-inside:avoid;page-break-inside:avoid;}
   .tbl--wide,.tbl--slim{min-width:0;}
+  /* 狭い画面の印刷でも、モバイル用の行カードを表に戻す */
+  .tbl--wide,.tbl--slim,.tbl--slim:not(:has(thead th:nth-child(3))){display:table;}
+  .tbl--wide thead,.tbl--slim thead,.tbl--slim:not(:has(thead th:nth-child(3))) thead{display:table-header-group;}
+  .tbl--wide tbody,.tbl--slim tbody,.tbl--slim:not(:has(thead th:nth-child(3))) tbody{display:table-row-group;}
+  .tbl--wide tbody tr[data-row],.tbl--slim tbody tr[data-row],
+  .tbl--slim:not(:has(thead th:nth-child(3))) tbody tr[data-row]{display:table-row;margin:0;border:0;border-radius:0;overflow:visible;}
+  .tbl--wide .r-key,.tbl--slim .r-key,.tbl--slim:not(:has(thead th:nth-child(3))) .r-key{display:table-cell;}
+  .tbl--wide tbody td[data-v],.tbl--slim td,.tbl--slim:not(:has(thead th:nth-child(3))) td{display:table-cell;}
+  .tbl--wide tbody td[data-v]::before{content:none;display:none;}
 }
 </style>
 </head>
