@@ -61,7 +61,8 @@ git rev-parse --abbrev-ref HEAD
 
 - `.eyebrow` を `Quick Reference / ${YEAR_MONTH}` にする
 - `.mast-meta` の情報取得時点を実行日の日本語日付にする（例: 2026年8月17日）
-- 件数を数え直して `.tally-n` を合わせる
+- 件数を数え直して §00 内の `.tally-mx` 表を合わせる（`.tally-n` は無い）
+- 表紙の標本（Canvas / Artifacts の4枚）は公開面に無い。復活させない
 
 HEARTBEAT では表紙日付を動かさない。
 

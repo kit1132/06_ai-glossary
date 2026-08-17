@@ -40,6 +40,7 @@ Success:
 - git push origin HEAD. Never git push origin HEAD:main.
 - index.html changes only when DECISION=FULL and an official page confirms them. Search-only items stay listed as 未確定.
 - Do not edit CSS, byline, or the trailing script.
+- Count cells are `.tally-mx` in section 00. Do not restore the cover specimen. Do not strip `&#x2060;` or `.nowrap`.
 ```
 
 6. **保存済みプロンプトをこの文面に更新する**（古いプロンプトの `git push origin HEAD:main` が残っていると push が拒否される）
