@@ -7,7 +7,7 @@ ChatGPT / Gemini / Claude / Copilot の公式名を確認し、裏付けが取�
 ## 前提
 
 - タイムゾーンは JST（Asia/Tokyo）
-- Routines 側は **毎週月曜 04:00 JST**（画面の weekly。cron は使わない）
+- Routines 側は **毎週月曜 03:00 JST**（画面の weekly。cron は使わない）
 - **本調査は隔週。** ISO 週番号が奇数の週だけ公式確認する。偶数週は心拍のみ
 - 作業ブランチは `main`。feature ブランチ・PR 放置は禁止
 - 01/02/03 の news リポジトリは clone しない

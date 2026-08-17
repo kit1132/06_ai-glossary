@@ -17,7 +17,7 @@
 ## 実行環境
 
 - Claude Code on the web の Routines（research preview）
-- 想定: Routines は **毎週月曜 04:00 JST**（画面の weekly。cron は使わない）
+- 想定: Routines は **毎週月曜 03:00 JST**（画面の weekly。cron は使わない）
 - 本調査は **ISO 週が奇数の週だけ**（隔週）。偶数週は心拍のみ
 - ネットワーク: **Full**（Default Trusted では公式ヘルプに届かない）
 - 日付: JST。`TZ=Asia/Tokyo date +%Y-%m-%d` で取る
