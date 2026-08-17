@@ -9,12 +9,16 @@
 <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Spline+Sans+Mono:wght@400;600&family=Zen+Maru+Gothic:wght@700;900&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   生成AI 用語早見表
+   生成AI 用語早見表（UI 正本。status: approved）
    ・地と文字は暖色ニュートラル（OKLCH h=55）で統一
    ・4社の色は同一明度(L.53)・同一彩度(C.115)面に配置
    ・色は「見出しの端」にだけ置き、表の面は同じ紙に保つ
    ・地はカードより一段落とし、輪郭は枠線の明度差で出す
    ・注意喚起は色相ではなく「濃さ」で示す
+   ・トークンは :root の --paper / --ink / --v1..v4（ベタ・ink・soft・tint）だけ
+   ・書体は --f-display / --f-body / --f-mono。新しい色・書体は足さない
+   ・狭い画面でも同じトークンを移植する（再デザイン禁止）
+     面は --vN-soft、文字は --vN-ink、ベタ --vN は端の帯だけ
    ============================================================ */
 :root{
   /* 紙とインク（暖色ニュートラル） */
@@ -455,8 +459,14 @@ a:hover{color:var(--ink);}
   .tally-mx-h{
     flex-wrap:wrap;justify-content:center;gap:2px;
     padding:5px 3px 6px;font-size:9px;line-height:1.2;
+    color:inherit;
   }
   .tally-mx-h .brand{width:13px;height:13px;}
+  .tally-mx-tbl thead th[data-v]{border-left-color:var(--rule);}
+  .tally-mx-tbl thead th[data-v="v1"]{background:var(--v1-soft);color:var(--v1-ink);box-shadow:inset 0 3px 0 var(--v1);}
+  .tally-mx-tbl thead th[data-v="v2"]{background:var(--v2-soft);color:var(--v2-ink);box-shadow:inset 0 3px 0 var(--v2);}
+  .tally-mx-tbl thead th[data-v="v3"]{background:var(--v3-soft);color:var(--v3-ink);box-shadow:inset 0 3px 0 var(--v3);}
+  .tally-mx-tbl thead th[data-v="v4"]{background:var(--v4-soft);color:var(--v4-ink);box-shadow:inset 0 3px 0 var(--v4);}
   .tally-mx-total-h{padding:6px 4px 7px;font-size:10px;}
   .tally-mx-total-h small{font-size:9px;}
   .tally-mx-tbl td{padding:6px 3px;font-size:13px;}
@@ -492,13 +502,14 @@ a:hover{color:var(--ink);}
   }
   .tbl--wide tbody td[data-v]:last-child{border-bottom:0;}
   .tbl--wide tbody td[data-v]::before{
-    display:block;margin:0 -14px 8px;padding:7px 14px;
-    font-family:var(--f-display);font-weight:700;font-size:12.5px;line-height:1.4;color:#FFFFFF;
+    display:block;margin:0 -14px 8px;padding:7px 10px;
+    font-family:var(--f-display);font-weight:700;font-size:12.5px;line-height:1.4;
+    border-left:4px solid transparent;
   }
-  .tbl--wide tbody td[data-v="v1"]::before{content:"ChatGPT";background:var(--v1);}
-  .tbl--wide tbody td[data-v="v2"]::before{content:"Gemini";background:var(--v2);}
-  .tbl--wide tbody td[data-v="v3"]::before{content:"Claude";background:var(--v3);}
-  .tbl--wide tbody td[data-v="v4"]::before{content:"Copilot";background:var(--v4);}
+  .tbl--wide tbody td[data-v="v1"]::before{content:"ChatGPT";background:var(--v1-soft);color:var(--v1-ink);border-left-color:var(--v1);}
+  .tbl--wide tbody td[data-v="v2"]::before{content:"Gemini";background:var(--v2-soft);color:var(--v2-ink);border-left-color:var(--v2);}
+  .tbl--wide tbody td[data-v="v3"]::before{content:"Claude";background:var(--v3-soft);color:var(--v3-ink);border-left-color:var(--v3);}
+  .tbl--wide tbody td[data-v="v4"]::before{content:"Copilot";background:var(--v4-soft);color:var(--v4-ink);border-left-color:var(--v4);}
 
   /* --- §07 ルール表（2列）：行カード型 --- */
   .tbl--slim:not(:has(thead th:nth-child(3))){min-width:0;display:block;}
@@ -557,6 +568,13 @@ a:hover{color:var(--ink);}
   .tbl--wide .r-key,.tbl--slim .r-key,.tbl--slim:not(:has(thead th:nth-child(3))) .r-key{display:table-cell;}
   .tbl--wide tbody td[data-v],.tbl--slim td,.tbl--slim:not(:has(thead th:nth-child(3))) td{display:table-cell;}
   .tbl--wide tbody td[data-v]::before{content:none;display:none;}
+  /* 印刷はデスクトップ正本どおり、見出し帯をベタ＋白文字に戻す */
+  .tally-mx-h{color:#FFFFFF;}
+  .tally-mx-tbl thead th[data-v]{border-left-color:rgba(255,255,255,.45);box-shadow:none;}
+  .tally-mx-tbl thead th[data-v="v1"]{background:var(--v1);color:#FFFFFF;}
+  .tally-mx-tbl thead th[data-v="v2"]{background:var(--v2);color:#FFFFFF;}
+  .tally-mx-tbl thead th[data-v="v3"]{background:var(--v3);color:#FFFFFF;}
+  .tally-mx-tbl thead th[data-v="v4"]{background:var(--v4);color:#FFFFFF;}
 }
 </style>
 </head>
