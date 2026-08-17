@@ -68,6 +68,7 @@ git push origin HEAD
 - PR を作って放置する
 - CSS・byline・末尾 `<script>` の改変
 - 公式ページなしで `index.html` を変える
+- `html-edit.md` に無い構造を足す（表紙標本の復活など）
 
 ## 成功条件
 
