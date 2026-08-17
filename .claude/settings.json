@@ -6,7 +6,19 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo \"[glossary-routine] Run python3 scripts/glossary-cadence.py first. git push origin HEAD only (current branch). Never git push origin HEAD:main. Never git checkout main to work. claude/* is merged to main by .github/workflows/claude-branch-to-main.yml.\""
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/ensure-claude-branch.sh"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Bash(git push *)",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/block-push-main.py"
           }
         ]
       }

@@ -27,18 +27,25 @@
 
 ## ⚠️ ブランチ運用（絶対ルール）
 
-クラウドは変更を `claude/` 接頭辞のブランチに載せる。GitHub プロキシは **現在の作業ブランチへの `git push` だけ**通す。`git push origin HEAD:main` は使うな。
+クラウドは `claude/` 接頭辞のブランチにだけ載せる。clone 開始は `main` なので、**先に `claude/glossary-YYYYMMDD` へ移る**。`git push origin HEAD:main` は使うな。GitHub プロキシは現在ブランチへの push だけ通し、`claude/` 以外は拒否されうる。
 
 ### 開始時
 
 ```bash
 python3 scripts/glossary-cadence.py
-git rev-parse --abbrev-ref HEAD
+# SessionStart hook がクラウドでは claude/glossary-YYYYMMDD を切る
+git rev-parse --abbrev-ref HEAD   # claude/* であること
 ```
 
 `DECISION=FULL` なら本調査。`HEARTBEAT` なら公式確認をせず心拍だけ。`FILES_OK=false` ならここで止める。
 
-作業ブランチを `main` に切り替えない。プロキシが push できるのは今いるブランチだけ。
+HEAD が `claude/` でなければ:
+
+```bash
+git checkout -B "claude/glossary-$(TZ=Asia/Tokyo date +%Y%m%d)"
+```
+
+`main` のまま commit / push しない。
 
 ### コミット・push（毎回必ず）
 

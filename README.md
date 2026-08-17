@@ -31,16 +31,18 @@ cron は使わない。画面の選択肢だけでよい。
 5. プロンプト:
 
 ```
-Read CLAUDE.md, then run python3 scripts/glossary-cadence.py and follow .claude/commands/biweekly-glossary-update.md.
+Read CLAUDE.md. Run python3 scripts/glossary-cadence.py. Follow .claude/commands/biweekly-glossary-update.md.
 
 Success:
 - FILES_OK must be true. If not, stop without editing index.html.
+- Work on a claude/glossary-YYYYMMDD branch, not main.
 - .last-check-state.md is committed with today's JST date even if index.html is unchanged.
-- git push origin HEAD (current working branch). Do not git push origin HEAD:main. Do not checkout main to work.
+- git push origin HEAD. Never git push origin HEAD:main.
 - index.html changes only when DECISION=FULL and an official page confirms them. Search-only items stay listed as 未確定.
 - Do not edit CSS, byline, or the trailing script.
 ```
 
-6. 初回確認はルーチン詳細の **Run now**。一覧の緑はインフラ成功だけで、表が更新された意味ではない。transcript と `.last-check-state.md` の実行日を見る
+6. **保存済みプロンプトをこの文面に更新する**（古いプロンプトの `git push origin HEAD:main` が残っていると push が拒否される）
+7. 初回確認はルーチン詳細の **Run now**。一覧の緑はインフラ成功だけで、表が更新された意味ではない。transcript と GitHub の `claude/glossary-*` ブランチ、`.last-check-state.md` の実行日を見る
 
 隔週は cadence スクリプトが決める。前回本調査日から 13 日未満なら心拍だけ。

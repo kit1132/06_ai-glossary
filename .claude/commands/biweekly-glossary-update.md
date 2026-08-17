@@ -9,7 +9,7 @@ ChatGPT / Gemini / Claude / Copilot の公式名を確認し、裏付けが取�
 - タイムゾーンは JST（Asia/Tokyo）
 - Routines 側は **毎週月曜 03:00**（画面の weekly。cron は使わない）
 - **本調査は隔週。** `python3 scripts/glossary-cadence.py` の `DECISION` に従う。ISO 週の偶奇では決めない
-- `git push origin HEAD:main` は禁止。`git push origin HEAD` のみ
+- `git push origin HEAD:main` は禁止。`claude/*` 上で `git push origin HEAD` のみ
 - 01/02/03 の news リポジトリは clone しない
 
 開始前に次を読む。
@@ -29,6 +29,8 @@ ChatGPT / Gemini / Claude / Copilot の公式名を確認し、裏付けが取�
 python3 scripts/glossary-cadence.py
 YEAR_MONTH=$(TZ=Asia/Tokyo date +%Y.%m)
 git rev-parse --abbrev-ref HEAD
+# claude/* でなければ:
+# git checkout -B "claude/glossary-$(TZ=Asia/Tokyo date +%Y%m%d)"
 ```
 
 - `FILES_OK=false` → 手順ファイルが clone に無い。`index.html` を触らず終了する（default branch に載っていない）
