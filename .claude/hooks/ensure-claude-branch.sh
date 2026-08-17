@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Cloud sessions only: work on claude/* so git push origin HEAD is accepted.
-set -euo pipefail
+# Cloud sessions: move onto claude/* so git push origin HEAD is accepted.
+set -uo pipefail
 
 # #region agent log
 _debug() {
@@ -15,7 +15,11 @@ payload = {
     "hypothesisId": hyp,
     "location": loc,
     "message": msg,
-    "data": {"CLAUDE_CODE_REMOTE": os.environ.get("CLAUDE_CODE_REMOTE"), "HEAD": os.environ.get("GLOSSARY_HEAD_BEFORE")},
+    "data": {
+        "CLAUDE_CODE_REMOTE": os.environ.get("CLAUDE_CODE_REMOTE"),
+        "CLAUDE_CODE_REMOTE_SESSION_ID": os.environ.get("CLAUDE_CODE_REMOTE_SESSION_ID"),
+        "HEAD": os.environ.get("GLOSSARY_HEAD_BEFORE"),
+    },
     "timestamp": int(time.time() * 1000),
 }
 try:
@@ -27,10 +31,19 @@ PY
 }
 # #endregion
 
-if [ -z "${CLAUDE_CODE_REMOTE:-}" ]; then
+remote="${CLAUDE_CODE_REMOTE:-unset}"
+session_id="${CLAUDE_CODE_REMOTE_SESSION_ID:-unset}"
+is_cloud=0
+if [ "${CLAUDE_CODE_REMOTE:-}" = "true" ] || [ -n "${CLAUDE_CODE_REMOTE_SESSION_ID:-}" ]; then
+  is_cloud=1
+fi
+
+echo "[glossary-routine] CLAUDE_CODE_REMOTE=${remote} SESSION_ID=${session_id} is_cloud=${is_cloud}"
+
+if [ "$is_cloud" -ne 1 ]; then
   echo "[glossary-routine] local session: skip claude/ checkout"
   # #region agent log
-  _debug L "ensure-claude-branch.sh" "skipped local session"
+  _debug M "ensure-claude-branch.sh" "skipped local session"
   # #endregion
   exit 0
 fi
@@ -51,10 +64,17 @@ case "$current" in
     ;;
   *)
     branch="claude/glossary-$(TZ=Asia/Tokyo date +%Y%m%d)"
-    git checkout -B "$branch"
-    echo "[glossary-routine] now on $branch. After commit: git push origin HEAD. Never git push origin HEAD:main. Workflow merges claude/* to main."
-    # #region agent log
-    _debug L "ensure-claude-branch.sh" "created claude branch"
-    # #endregion
+    if git checkout -B "$branch"; then
+      echo "[glossary-routine] now on $branch. After commit: git push origin HEAD. Never git push origin HEAD:main."
+      # #region agent log
+      _debug L "ensure-claude-branch.sh" "created claude branch"
+      # #endregion
+    else
+      echo "[glossary-routine] ERROR: git checkout -B $branch failed (was on $current)" >&2
+      # #region agent log
+      _debug M "ensure-claude-branch.sh" "checkout failed"
+      # #endregion
+    fi
     ;;
 esac
+exit 0
