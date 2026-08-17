@@ -142,7 +142,7 @@ a:hover{color:var(--ink);}
 }
 .tally{
   display:grid;grid-template-columns:repeat(auto-fit,minmax(146px,1fr));
-  gap:10px;margin:0;
+  gap:10px;margin:0;align-items:start;
 }
 .tally-c{
   background:var(--card);border:1px solid var(--rule);border-radius:var(--r);
@@ -161,6 +161,20 @@ a:hover{color:var(--ink);}
   color:var(--ink-2);letter-spacing:0;
 }
 .tally-c--sum{background:var(--sum);border-color:var(--sum-line);}
+.tally-br{
+  display:flex;flex-wrap:wrap;gap:5px 4px;margin:10px 0 0;padding:10px 0 0;
+  border-top:1px solid var(--rule);list-style:none;
+}
+.tally-br li{
+  display:inline-flex;align-items:baseline;gap:4px;
+  font-size:11.5px;font-weight:700;line-height:1.4;padding:2px 8px 3px 0;
+}
+.tally-br li + li{padding-left:8px;border-left:1px solid var(--rule-2);}
+.tally-br [data-v="v1"]{color:var(--v1-ink);}
+.tally-br [data-v="v2"]{color:var(--v2-ink);}
+.tally-br [data-v="v3"]{color:var(--v3-ink);}
+.tally-br [data-v="v4"]{color:var(--v4-ink);}
+.tally-br b{font-family:var(--f-mono);font-weight:600;font-size:13px;letter-spacing:-.02em;}
 
 /* ---------- 見出し標本（ホーム） ---------- */
 .specimen{
@@ -475,6 +489,12 @@ a:hover{color:var(--ink);}
     <div class="tally-c">
       <span class="tally-l">4社の呼び名</span>
       <span class="tally-n">64<span class="tally-u">用語</span></span>
+      <ul class="tally-br">
+        <li data-v="v1">ChatGPT <b>17</b></li>
+        <li data-v="v2">Gemini <b>17</b></li>
+        <li data-v="v3">Claude <b>14</b></li>
+        <li data-v="v4">Copilot <b>16</b></li>
+      </ul>
     </div>
     <div class="tally-c">
       <span class="tally-l">共通のことば</span>
