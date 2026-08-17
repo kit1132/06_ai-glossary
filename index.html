@@ -441,6 +441,78 @@ a:hover{color:var(--ink);}
 @media (max-width:560px){
   .bar{border-radius:var(--r-lg);align-items:stretch;padding:12px 14px;}
   .bar-field{flex:1 1 100%;}
+
+  /* --- 集計表：6列を横スクロールなしで全量表示 --- */
+  .tally-mx{overflow-x:visible;}
+  .tally-mx-tbl{min-width:0;font-size:11px;}
+  .tally-mx-tbl col.tally-mx-cat{width:26%;}
+  .tally-mx-tbl col.tally-mx-v{width:11%;}
+  .tally-mx-tbl col.tally-mx-total{width:14%;}
+  .tally-mx-key,.tally-mx-tbl tbody th{white-space:normal;padding:7px 5px;font-size:10px;line-height:1.35;}
+  .tally-mx-h{
+    flex-wrap:wrap;justify-content:center;gap:2px;
+    padding:5px 3px 6px;font-size:9px;line-height:1.2;
+  }
+  .tally-mx-h .brand{width:13px;height:13px;}
+  .tally-mx-total-h{padding:6px 4px 7px;font-size:10px;}
+  .tally-mx-total-h small{font-size:9px;}
+  .tally-mx-tbl td{padding:6px 3px;font-size:13px;}
+  .tally-mx-tbl td.tally-mx-total{font-size:14px;}
+  .tally-mx-share{white-space:normal;font-size:9.5px;line-height:1.35;}
+  .tally-mx-sum td.tally-mx-total{font-size:17px;}
+
+  /* --- 表共通：モバイルでは横スクロールをやめる --- */
+  .tblbox{overflow-x:visible;}
+
+  /* --- §05 改名表（3列）：表のまま折り返して全量表示 --- */
+  .tbl--slim:has(thead th:nth-child(3)){min-width:0;font-size:12.5px;}
+  .tbl--slim:has(thead th:nth-child(3)) .h-key,
+  .tbl--slim:has(thead th:nth-child(3)) .r-key{white-space:normal;padding:10px 8px;font-size:12px;}
+  .tbl--slim:has(thead th:nth-child(3)) td{padding:10px 8px;}
+
+  /* --- §02–04 広い4社表：行カード型 --- */
+  .tbl--wide{min-width:0;display:block;}
+  .tbl--wide thead{display:none;}
+  .tbl--wide tbody{display:block;}
+  .tbl--wide tbody tr[data-row]{
+    display:block;margin-bottom:12px;
+    border:1px solid var(--rule);border-radius:var(--r);
+    background:var(--card);overflow:hidden;
+  }
+  .tbl--wide tbody tr[data-row] > *{border-bottom:1px solid var(--rule);}
+  .tbl--wide .r-key{
+    display:block;border-bottom:1px solid var(--rule-2);
+    border-right:0;padding:12px 14px;
+  }
+  .tbl--wide tbody td[data-v]{
+    display:block;border-left:0;padding:0 14px 12px;
+  }
+  .tbl--wide tbody td[data-v]:last-child{border-bottom:0;}
+  .tbl--wide tbody td[data-v]::before{
+    display:block;margin:0 -14px 8px;padding:7px 14px;
+    font-family:var(--f-display);font-weight:700;font-size:12.5px;line-height:1.4;color:#FFFFFF;
+  }
+  .tbl--wide tbody td[data-v="v1"]::before{content:"ChatGPT";background:var(--v1);}
+  .tbl--wide tbody td[data-v="v2"]::before{content:"Gemini";background:var(--v2);}
+  .tbl--wide tbody td[data-v="v3"]::before{content:"Claude";background:var(--v3);}
+  .tbl--wide tbody td[data-v="v4"]::before{content:"Copilot";background:var(--v4);}
+
+  /* --- §07 ルール表（2列）：行カード型 --- */
+  .tbl--slim:not(:has(thead th:nth-child(3))){min-width:0;display:block;}
+  .tbl--slim:not(:has(thead th:nth-child(3))) thead{display:none;}
+  .tbl--slim:not(:has(thead th:nth-child(3))) tbody{display:block;}
+  .tbl--slim:not(:has(thead th:nth-child(3))) tbody tr[data-row]{
+    display:block;margin-bottom:12px;
+    border:1px solid var(--rule);border-radius:var(--r);
+    background:var(--card);overflow:hidden;
+  }
+  .tbl--slim:not(:has(thead th:nth-child(3))) .r-key{
+    display:block;border-bottom:1px solid var(--rule-2);border-right:0;
+    padding:12px 14px;
+  }
+  .tbl--slim:not(:has(thead th:nth-child(3))) td{
+    display:block;border-left:0;border-bottom:0;padding:12px 14px 14px;
+  }
 }
 @media (prefers-reduced-motion:reduce){
   *{transition:none !important;animation:none !important;}
@@ -473,6 +545,15 @@ a:hover{color:var(--ink);}
   .tbl thead{display:table-header-group;}
   .tbl tr{break-inside:avoid;page-break-inside:avoid;}
   .tbl--wide,.tbl--slim{min-width:0;}
+  /* 狭い画面の印刷でも、モバイル用の行カードを表に戻す */
+  .tbl--wide,.tbl--slim,.tbl--slim:not(:has(thead th:nth-child(3))){display:table;}
+  .tbl--wide thead,.tbl--slim thead,.tbl--slim:not(:has(thead th:nth-child(3))) thead{display:table-header-group;}
+  .tbl--wide tbody,.tbl--slim tbody,.tbl--slim:not(:has(thead th:nth-child(3))) tbody{display:table-row-group;}
+  .tbl--wide tbody tr[data-row],.tbl--slim tbody tr[data-row],
+  .tbl--slim:not(:has(thead th:nth-child(3))) tbody tr[data-row]{display:table-row;margin:0;border:0;border-radius:0;overflow:visible;}
+  .tbl--wide .r-key,.tbl--slim .r-key,.tbl--slim:not(:has(thead th:nth-child(3))) .r-key{display:table-cell;}
+  .tbl--wide tbody td[data-v],.tbl--slim td,.tbl--slim:not(:has(thead th:nth-child(3))) td{display:table-cell;}
+  .tbl--wide tbody td[data-v]::before{content:none;display:none;}
 }
 </style>
 </head>
