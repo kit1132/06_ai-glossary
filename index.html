@@ -136,9 +136,13 @@ a:hover{color:var(--ink);}
 }
 
 /* ---------- 集計 ---------- */
+.tally-hd{
+  margin:clamp(18px,2.8vw,24px) 0 10px;
+  font-size:15px;font-weight:700;color:var(--ink);line-height:1.4;
+}
 .tally{
   display:grid;grid-template-columns:repeat(auto-fit,minmax(146px,1fr));
-  gap:10px;margin:clamp(16px,2.6vw,22px) 0 0;
+  gap:10px;margin:0;
 }
 .tally-c{
   background:var(--card);border:1px solid var(--rule);border-radius:var(--r);
@@ -460,26 +464,27 @@ a:hover{color:var(--ink);}
     </div>
   </div>
 
+  <p class="tally-hd">収録した用語の数</p>
   <div class="tally">
     <div class="tally-c">
       <span class="tally-l">やりたいこと</span>
-      <span class="tally-n">17<span class="tally-u">件</span></span>
+      <span class="tally-n">17<span class="tally-u">用語</span></span>
     </div>
     <div class="tally-c">
       <span class="tally-l">4社の呼び名</span>
-      <span class="tally-n">64<span class="tally-u">件</span></span>
+      <span class="tally-n">64<span class="tally-u">用語</span></span>
     </div>
     <div class="tally-c">
       <span class="tally-l">共通のことば</span>
-      <span class="tally-n">24<span class="tally-u">件</span></span>
+      <span class="tally-n">24<span class="tally-u">用語</span></span>
     </div>
     <div class="tally-c">
       <span class="tally-l">改名の記録</span>
-      <span class="tally-n">12<span class="tally-u">件</span></span>
+      <span class="tally-n">12<span class="tally-u">用語</span></span>
     </div>
     <div class="tally-c tally-c--sum">
-      <span class="tally-l">収録した項目</span>
-      <span class="tally-n">117<span class="tally-u">件</span></span>
+      <span class="tally-l">合計</span>
+      <span class="tally-n">117<span class="tally-u">用語</span></span>
     </div>
   </div>
 
