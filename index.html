@@ -18,7 +18,8 @@
    ・トークンは :root の --paper / --ink / --v1..v4（ベタ・ink・soft・tint）だけ
    ・書体は --f-display / --f-body / --f-mono。新しい色・書体は足さない
    ・狭い画面でも同じトークンを移植する（再デザイン禁止）
-     面は --vN-soft、文字は --vN-ink、ベタ --vN は端の帯だけ
+     集計の見出し帯：面は --vN-soft、文字は --vN-ink、ベタ --vN は端の帯だけ
+     4社対応表の社名：端の帯と文字色だけ。面は紙
    ・4社対応表は1件の見出しの下に4社を横並びにする（列順はデスクトップと同じ）
    ============================================================ */
 :root{
@@ -57,8 +58,8 @@ body{
   line-break:strict;word-break:auto-phrase;overflow-wrap:break-word;text-wrap:pretty;
 }
 table{border-collapse:collapse;}
-a{color:var(--v2-ink);text-underline-offset:2px;}
-a:hover{color:var(--ink);}
+a{color:var(--ink);text-underline-offset:2px;}
+a:hover{color:var(--ink-2);}
 :where(a,button,input,summary):focus-visible{outline:2.5px solid var(--v2);outline-offset:2px;border-radius:var(--r-xs);}
 
 .doc{max-width:1120px;margin:0 auto;padding:0 clamp(14px,3.6vw,36px) 88px;}
@@ -123,8 +124,8 @@ a:hover{color:var(--ink);}
 }
 .act:hover{border-color:var(--ink-2);transform:translateY(-1px);}
 .act .ico{width:14px;height:14px;color:var(--ink-2);}
-.act[data-done="1"]{border-color:var(--v1);color:var(--v1-ink);}
-.act[data-done="1"] .ico{color:var(--v1);}
+.act[data-done="1"]{border-color:var(--frame);color:var(--ink);}
+.act[data-done="1"] .ico{color:var(--frame);}
 .byline-ico{
   width:52px;height:52px;flex:0 0 auto;border-radius:var(--r-pill);
   background:var(--card);object-fit:cover;
@@ -186,11 +187,8 @@ a:hover{color:var(--ink);}
 .tally-mx-tbl td{
   text-align:center;padding:9px 10px;
   font-family:var(--f-mono);font-weight:600;font-size:15px;letter-spacing:-.03em;
+  color:var(--ink);
 }
-.tally-mx-tbl td[data-v="v1"]{color:var(--v1-ink);}
-.tally-mx-tbl td[data-v="v2"]{color:var(--v2-ink);}
-.tally-mx-tbl td[data-v="v3"]{color:var(--v3-ink);}
-.tally-mx-tbl td[data-v="v4"]{color:var(--v4-ink);}
 .tally-mx-tbl td.tally-mx-total{
   background:var(--sum);color:var(--ink);font-size:16px;border-left:1px solid var(--sum-line);
 }
@@ -510,10 +508,10 @@ a:hover{color:var(--ink);}
     font-family:var(--f-display);font-weight:700;font-size:9px;line-height:1.2;
     text-align:center;overflow-wrap:anywhere;
   }
-  .tbl--wide tbody td[data-v="v1"]::before{content:"ChatGPT";background:var(--v1-soft);color:var(--v1-ink);box-shadow:inset 0 3px 0 var(--v1);}
-  .tbl--wide tbody td[data-v="v2"]::before{content:"Gemini";background:var(--v2-soft);color:var(--v2-ink);box-shadow:inset 0 3px 0 var(--v2);}
-  .tbl--wide tbody td[data-v="v3"]::before{content:"Claude";background:var(--v3-soft);color:var(--v3-ink);box-shadow:inset 0 3px 0 var(--v3);}
-  .tbl--wide tbody td[data-v="v4"]::before{content:"Copilot";background:var(--v4-soft);color:var(--v4-ink);box-shadow:inset 0 3px 0 var(--v4);}
+  .tbl--wide tbody td[data-v="v1"]::before{content:"ChatGPT";color:var(--v1-ink);box-shadow:inset 0 3px 0 var(--v1);}
+  .tbl--wide tbody td[data-v="v2"]::before{content:"Gemini";color:var(--v2-ink);box-shadow:inset 0 3px 0 var(--v2);}
+  .tbl--wide tbody td[data-v="v3"]::before{content:"Claude";color:var(--v3-ink);box-shadow:inset 0 3px 0 var(--v3);}
+  .tbl--wide tbody td[data-v="v4"]::before{content:"Copilot";color:var(--v4-ink);box-shadow:inset 0 3px 0 var(--v4);}
   .tbl--wide tbody td[data-v] .term{font-size:11px;}
   .tbl--wide tbody td[data-v] .term.ja{font-size:11px;}
   .tbl--wide tbody td[data-v] .gloss{font-size:10px;line-height:1.45;}
