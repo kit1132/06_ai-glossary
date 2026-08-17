@@ -402,14 +402,33 @@ a:hover{color:var(--ink);}
   *{transition:none !important;animation:none !important;}
 }
 @media print{
+  @page{size:A4;margin:0.5in;}
   body{background:#FFFFFF;}
   .doc{max-width:none;padding:0;}
   .bar,.actions{display:none;}
   .mast,.specimen,.card,.tblbox,.stamp,.def,.colophon,.tally-c{box-shadow:none;}
-  .tblbox{overflow:visible;}
+  *{print-color-adjust:exact;-webkit-print-color-adjust:exact;}
+  p{orphans:3;widows:3;}
+
+  /* 節・表全体を1ページに押し込めない（収まらないと空白か途中切れになる） */
+  .sec,.tblbox,.cards,.deflist{break-inside:auto;page-break-inside:auto;}
+  .sec + .sec{break-before:page;page-break-before:always;}
+
+  /* 見出しだけ次ページに残さない */
+  .sec-hd,.sec-note,.grp-h,h2,h3{
+    break-after:avoid;page-break-after:avoid;
+    break-inside:avoid;page-break-inside:avoid;
+  }
+  .mast,.specimen,.tally,.card,.stamp,.def,.colophon{
+    break-inside:avoid;page-break-inside:avoid;
+  }
+
+  /* 表は行の途中で切らず、続きのページでも見出し行を出す */
+  .tblbox{overflow:visible;border-radius:0;}
+  .tbl{border-collapse:separate;border-spacing:0;}
+  .tbl thead{display:table-header-group;}
+  .tbl tr{break-inside:avoid;page-break-inside:avoid;}
   .tbl--wide,.tbl--slim{min-width:0;}
-  .sec{break-inside:avoid-page;}
-  .specimen,.stamp,.tblbox,.cards,.deflist,.def{break-inside:avoid;}
 }
 </style>
 </head>
