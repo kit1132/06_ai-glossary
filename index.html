@@ -295,7 +295,7 @@ a:hover{color:var(--ink);}
   background:var(--card);border:1px solid var(--rule);border-radius:var(--r);
   box-shadow:var(--sh-1);overflow-x:auto;
 }
-.tbl{width:100%;font-size:13.5px;}
+.tbl{width:100%;font-size:13.5px;table-layout:fixed;}
 .tbl--wide{min-width:800px;}
 .tbl--slim{min-width:640px;}
 .tbl thead th{text-align:left;vertical-align:bottom;}
@@ -303,6 +303,9 @@ a:hover{color:var(--ink);}
   font-family:var(--f-display);font-weight:700;padding:14px 14px 13px;
   border-bottom:1px solid var(--rule-2);background:var(--card);white-space:nowrap;
 }
+/* 左列だけ幅を決め、残り（4社）は自動で均等割り */
+.tbl--wide thead .h-key{width:22%;}
+.tbl--slim thead th:first-child{width:30%;}
 .h-v{padding:0;border-bottom:1px solid var(--rule-2);white-space:nowrap;transition:opacity .16s ease;}
 .h-v-in{
   display:flex;align-items:center;gap:8px;padding:11px 14px 12px;color:#FFFFFF;
@@ -320,13 +323,12 @@ a:hover{color:var(--ink);}
 .r-key{
   text-align:left;font-weight:700;padding:13px 14px;vertical-align:top;
   background:var(--paper-2);border-bottom:1px solid var(--rule);
-  line-height:1.6;width:23%;min-width:150px;color:var(--ink);
+  line-height:1.6;color:var(--ink);
 }
-.tbl--slim .r-key{width:30%;min-width:172px;}
 .tbl td{
   padding:12px 14px;vertical-align:top;line-height:1.6;
   border-bottom:1px solid var(--rule);border-left:1px solid var(--rule);
-  transition:opacity .16s ease;
+  transition:opacity .16s ease;overflow-wrap:break-word;
 }
 .tbl tbody tr:last-child > *{border-bottom:0;}
 .term{
