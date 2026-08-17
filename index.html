@@ -140,37 +140,15 @@ a:hover{color:var(--ink);}
   margin:clamp(18px,2.8vw,24px) 0 10px;
   font-size:15px;font-weight:700;color:var(--ink);line-height:1.4;
 }
-.tally{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(146px,1fr));
-  gap:10px;margin:0;
-}
-.tally-c{
-  background:var(--card);border:1px solid var(--rule);border-radius:var(--r);
-  box-shadow:var(--sh-1);padding:14px 16px 16px;
-}
-.tally-l{
-  display:block;font-size:13.5px;font-weight:700;color:var(--ink);line-height:1.4;
-}
-.tally-n{
-  display:flex;align-items:baseline;gap:5px;margin:8px 0 0;
-  font-family:var(--f-mono);font-weight:600;color:var(--ink);
-  font-size:clamp(28px,4.2vw,38px);line-height:1.05;letter-spacing:-.045em;
-}
-.tally-u{
-  font-family:var(--f-body);font-size:14px;font-weight:700;
-  color:var(--ink-2);letter-spacing:0;
-}
-.tally-c--sum{background:var(--sum);border-color:var(--sum-line);}
-.tally-hd--sub{
-  margin:16px 0 8px;font-size:13.5px;font-weight:700;color:var(--ink-2);line-height:1.4;
-}
 .tally-mx{
   background:var(--card);border:1px solid var(--rule);border-radius:var(--r);
   box-shadow:var(--sh-1);overflow-x:auto;
 }
-.tally-mx-tbl{width:100%;min-width:520px;border-collapse:collapse;font-size:13px;}
-.tally-mx-tbl th,.tally-mx-tbl td{border-bottom:1px solid var(--rule);}
-.tally-mx-tbl tbody tr:last-child > *{border-bottom:0;}
+.tally-mx-tbl{width:100%;min-width:640px;border-collapse:collapse;table-layout:fixed;font-size:13px;}
+.tally-mx-tbl col.tally-mx-cat{width:22%;}
+.tally-mx-tbl col.tally-mx-v{width:15.5%;}
+.tally-mx-tbl col.tally-mx-total{width:16%;}
+.tally-mx-tbl th,.tally-mx-tbl td{border:1px solid var(--rule);}
 .tally-mx-key{
   text-align:left;font-weight:700;padding:10px 12px;background:var(--card);
   white-space:nowrap;font-size:12px;color:var(--ink-2);
@@ -181,13 +159,22 @@ a:hover{color:var(--ink);}
   font-family:var(--f-display);font-weight:700;font-size:12.5px;line-height:1.4;
 }
 .tally-mx-h .brand{width:18px;height:18px;}
+.tally-mx-total-h{
+  padding:8px 10px 9px;background:var(--sum);color:var(--ink);
+  font-family:var(--f-display);font-weight:700;font-size:12.5px;line-height:1.4;
+}
+.tally-mx-total-h small{
+  display:block;font-family:var(--f-body);font-size:10.5px;font-weight:700;
+  color:var(--ink-2);margin-top:1px;
+}
+.tally-mx-tbl thead th[data-v]{border-left:1px solid rgba(255,255,255,.45);}
 .tally-mx-tbl thead th[data-v="v1"]{background:var(--v1);}
 .tally-mx-tbl thead th[data-v="v2"]{background:var(--v2);}
 .tally-mx-tbl thead th[data-v="v3"]{background:var(--v3);}
 .tally-mx-tbl thead th[data-v="v4"]{background:var(--v4);}
 .tally-mx-tbl tbody th{
   text-align:left;font-weight:700;padding:9px 12px;background:var(--paper-2);
-  white-space:nowrap;line-height:1.4;
+  white-space:nowrap;line-height:1.4;border-right:1px solid var(--rule-2);
 }
 .tally-mx-tbl td{
   text-align:center;padding:9px 10px;
@@ -197,12 +184,15 @@ a:hover{color:var(--ink);}
 .tally-mx-tbl td[data-v="v2"]{color:var(--v2-ink);}
 .tally-mx-tbl td[data-v="v3"]{color:var(--v3-ink);}
 .tally-mx-tbl td[data-v="v4"]{color:var(--v4-ink);}
+.tally-mx-tbl td.tally-mx-total{
+  background:var(--sum);color:var(--ink);font-size:16px;border-left:1px solid var(--sum-line);
+}
 .tally-mx-share{
   display:block;font-family:var(--f-body);font-size:12.5px;font-weight:700;
   color:var(--ink-2);letter-spacing:0;text-align:center;
 }
-.tally-mx-sum th,.tally-mx-sum td{background:var(--sum);}
-.tally-mx-sum td{font-size:16px;}
+.tally-mx-sum th,.tally-mx-sum td{background:var(--sum);border-top:1px solid var(--sum-line);}
+.tally-mx-sum td.tally-mx-total{font-size:20px;letter-spacing:-.04em;}
 .tally-mx-cap{
   margin:8px 0 0;padding:0 4px;font-size:12.5px;color:var(--ink-2);line-height:1.7;
 }
@@ -449,7 +439,6 @@ a:hover{color:var(--ink);}
 .colophon code{font-family:var(--f-mono);font-size:11.5px;}
 
 @media (max-width:560px){
-  .tally-c--sum{grid-column:1 / -1;}
   .bar{border-radius:var(--r-lg);align-items:stretch;padding:12px 14px;}
   .bar-field{flex:1 1 100%;}
 }
@@ -461,7 +450,7 @@ a:hover{color:var(--ink);}
   body{background:#FFFFFF;}
   .doc{max-width:none;padding:0;}
   .bar,.actions{display:none;}
-  .mast,.specimen,.card,.tblbox,.stamp,.def,.colophon,.tally-c,.tally-mx{box-shadow:none;}
+  .mast,.specimen,.card,.tblbox,.stamp,.def,.colophon,.tally-mx{box-shadow:none;}
   *{print-color-adjust:exact;-webkit-print-color-adjust:exact;}
   p{orphans:3;widows:3;}
 
@@ -474,7 +463,7 @@ a:hover{color:var(--ink);}
     break-after:avoid;page-break-after:avoid;
     break-inside:avoid;page-break-inside:avoid;
   }
-  .mast,.specimen,.tally,.tally-mx,.card,.stamp,.def,.colophon{
+  .mast,.specimen,.tally-mx,.card,.stamp,.def,.colophon{
     break-inside:avoid;page-break-inside:avoid;
   }
 
@@ -512,31 +501,16 @@ a:hover{color:var(--ink);}
   </div>
 
   <p class="tally-hd">収録した用語の数</p>
-  <div class="tally">
-    <div class="tally-c">
-      <span class="tally-l">やりたいこと</span>
-      <span class="tally-n">17<span class="tally-u">用語</span></span>
-    </div>
-    <div class="tally-c">
-      <span class="tally-l">4社の呼び名</span>
-      <span class="tally-n">64<span class="tally-u">用語</span></span>
-    </div>
-    <div class="tally-c">
-      <span class="tally-l">共通のことば</span>
-      <span class="tally-n">24<span class="tally-u">用語</span></span>
-    </div>
-    <div class="tally-c">
-      <span class="tally-l">改名の記録</span>
-      <span class="tally-n">12<span class="tally-u">用語</span></span>
-    </div>
-    <div class="tally-c tally-c--sum">
-      <span class="tally-l">合計</span>
-      <span class="tally-n">117<span class="tally-u">用語</span></span>
-    </div>
-  </div>
-  <p class="tally-hd tally-hd--sub">各ツールの内訳</p>
   <div class="tally-mx">
     <table class="tally-mx-tbl">
+      <colgroup>
+        <col class="tally-mx-cat" />
+        <col class="tally-mx-v" />
+        <col class="tally-mx-v" />
+        <col class="tally-mx-v" />
+        <col class="tally-mx-v" />
+        <col class="tally-mx-total" />
+      </colgroup>
       <thead>
         <tr>
           <th scope="col" class="tally-mx-key">区分</th>
@@ -544,12 +518,14 @@ a:hover{color:var(--ink);}
           <th scope="col" data-v="v2"><span class="tally-mx-h"><span class="brand brand--v2"></span>Gemini</span></th>
           <th scope="col" data-v="v3"><span class="tally-mx-h"><span class="brand brand--v3"></span>Claude</span></th>
           <th scope="col" data-v="v4"><span class="tally-mx-h"><span class="brand brand--v4"></span>Copilot</span></th>
+          <th scope="col" class="tally-mx-total-h">計<small>用語</small></th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <th scope="row">やりたいこと</th>
-          <td colspan="4"><span class="tally-mx-share">4社共通 17</span></td>
+          <td colspan="4"><span class="tally-mx-share">4社共通</span></td>
+          <td class="tally-mx-total">17</td>
         </tr>
         <tr>
           <th scope="row">4社の呼び名</th>
@@ -557,10 +533,12 @@ a:hover{color:var(--ink);}
           <td data-v="v2">17</td>
           <td data-v="v3">14</td>
           <td data-v="v4">16</td>
+          <td class="tally-mx-total">64</td>
         </tr>
         <tr>
           <th scope="row">共通のことば</th>
-          <td colspan="4"><span class="tally-mx-share">4社共通 24</span></td>
+          <td colspan="4"><span class="tally-mx-share">4社共通</span></td>
+          <td class="tally-mx-total">24</td>
         </tr>
         <tr>
           <th scope="row">改名の記録</th>
@@ -568,18 +546,17 @@ a:hover{color:var(--ink);}
           <td data-v="v2">4</td>
           <td data-v="v3">0</td>
           <td data-v="v4">3</td>
+          <td class="tally-mx-total">12</td>
         </tr>
         <tr class="tally-mx-sum">
-          <th scope="row">呼び名＋改名</th>
-          <td data-v="v1">22</td>
-          <td data-v="v2">21</td>
-          <td data-v="v3">14</td>
-          <td data-v="v4">19</td>
+          <th scope="row">合計</th>
+          <td colspan="4"><span class="tally-mx-share">呼び名・改名 76 ＋ 共通 41</span></td>
+          <td class="tally-mx-total">117</td>
         </tr>
       </tbody>
     </table>
   </div>
-  <p class="tally-mx-cap">「やりたいこと」と「共通のことば」は4社で同じ語です。呼び名＋改名の76に、その共通41を足すと合計117になります。</p>
+  <p class="tally-mx-cap">「やりたいこと」と「共通のことば」は4社で同じ語です。「4社の呼び名」は 17＋17＋14＋16、「改名の記録」は 5＋4＋0＋3 です。</p>
 
   <div class="specimen">
     <div class="specimen-hd">
