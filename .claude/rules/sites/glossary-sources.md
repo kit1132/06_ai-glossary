@@ -95,7 +95,7 @@
 - 備考: 01 ではセッションによって `learn.microsoft.com` が拒否される。失敗時は未確定
 
 ### サポート・料金
-- URL: https://www.microsoft.com/microsoft-365/microsoft-365-premium
+- URL: https://www.microsoft.com/en-us/microsoft-365/buy/compare-all-microsoft-365-products
 - URL: https://support.microsoft.com
 - 検索キーワード: `Microsoft 365 Premium price 2026` / `Copilot Pro end of support`
 - 取得方法: WebFetch → 失敗時 WebSearch
