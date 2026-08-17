@@ -432,6 +432,7 @@ a:hover{color:var(--ink);}
     </div>
       <div class="actions">
         <button type="button" class="act" data-print="1"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9V3.5h10V9M7 18.5H5a2 2 0 0 1-2-2V11a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5.5a2 2 0 0 1-2 2h-2M7 14.5h10v6H7z" style="fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round" /></svg>印刷・PDF</button>
+        <button type="button" class="act" data-save="1"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 5-5m-5 5-5-5M4 20h16" style="fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round" /></svg>HTMLを保存</button>
       </div>
     </div>
   </div>
@@ -977,6 +978,35 @@ a:hover{color:var(--ink);}
 
   const pb = r.querySelector('[data-print]');
   if (pb) pb.addEventListener('click', () => window.print());
+  const sb = r.querySelector('[data-save]');
+  if (sb) sb.addEventListener('click', () => saveHtml(sb));
+
+  function saveHtml(btn) {
+    const doc = document.documentElement.cloneNode(true);
+    doc.querySelectorAll('script, template, .bar, .actions').forEach(n => n.remove());
+    doc.querySelectorAll('[data-v]').forEach(el => { el.style.opacity = ''; });
+    doc.querySelectorAll('[data-row],[data-gitem],[data-group]').forEach(el => { el.style.display = ''; });
+    const empty = doc.querySelector('[data-empty]');
+    if (empty) empty.style.display = 'none';
+
+    const url = URL.createObjectURL(new Blob(
+      ['<!DOCTYPE html>\n' + doc.outerHTML], { type: 'text/html;charset=utf-8' }));
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = '生成AI用語早見表.html';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 3000);
+
+    const label = btn.lastChild;
+    btn.setAttribute('data-done', '1');
+    if (label) label.textContent = '保存しました';
+    setTimeout(() => {
+      btn.removeAttribute('data-done');
+      if (label) label.textContent = 'HTMLを保存';
+    }, 2400);
+  }
 
   function applyFocus() {
     r.querySelectorAll('[data-v]').forEach(el => {
