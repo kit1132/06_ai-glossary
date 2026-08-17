@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"[glossary-routine] Run python3 scripts/glossary-cadence.py first. git push origin HEAD only (current branch). Never git push origin HEAD:main. Never git checkout main to work. claude/* is merged to main by .github/workflows/claude-branch-to-main.yml.\""
+          }
+        ]
+      }
+    ]
+  }
+}
