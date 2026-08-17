@@ -500,6 +500,50 @@ a:hover{color:var(--ink);}
     </div>
   </div>
 
+  <div class="specimen">
+    <div class="specimen-hd">
+      <div class="specimen-eb">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="8" r="3.1" /><circle cx="16" cy="8" r="3.1" /><circle cx="8" cy="16" r="3.1" /><circle cx="16" cy="16" r="3.1" /></svg>
+        <p class="eyebrow">One feature, four names</p>
+      </div>
+      <p class="specimen-task">「会話の横で、文章や資料を直す」は、4社でこう呼びます</p>
+    </div>
+    <div class="specimen-cols">
+      <div class="spec" data-v="v1">
+        <span class="spec-tab"><span class="brand brand--v1"></span>ChatGPT</span>
+        <div class="spec-body"><span class="spec-name">Canvas</span><span class="spec-yomi">キャンバス</span></div>
+      </div>
+      <div class="spec" data-v="v2">
+        <span class="spec-tab"><span class="brand brand--v2"></span>Gemini</span>
+        <div class="spec-body"><span class="spec-name">Canvas</span><span class="spec-yomi">キャンバス</span></div>
+      </div>
+      <div class="spec" data-v="v3">
+        <span class="spec-tab"><span class="brand brand--v3"></span>Claude</span>
+        <div class="spec-body"><span class="spec-name">Artifacts</span><span class="spec-yomi">アーティファクト</span></div>
+      </div>
+      <div class="spec" data-v="v4">
+        <span class="spec-tab"><span class="brand brand--v4"></span>Copilot</span>
+        <div class="spec-body"><span class="spec-name">Copilot Pages</span><span class="spec-yomi">ページ</span></div>
+      </div>
+    </div>
+    <p class="specimen-ft">やりたいことを左に置き、4社の呼び名を右に並べる。この形の表がこのあとずっと続きます。4社はこの順番・この色・この印で最後まで並びます。下の会社名を押すと、その1社だけを残せます。もう一度押すと戻ります。</p>
+  </div>
+
+  <div class="bar">
+    <div class="bar-field">
+      <svg class="ico ico-ring" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.6" /><path d="M15.4 15.4 21 21" style="fill:none;stroke:currentColor;stroke-width:3.4;stroke-linecap:round" /></svg>
+      <label class="bar-lbl" for="q">用語をさがす</label>
+      <input id="q" data-search="1" type="search" class="bar-input" placeholder="例：キャンバス、Deep Research、トークン" autocomplete="off" />
+      <span class="bar-count" data-count="1"></span>
+    </div>
+    <div class="chips">
+      <button type="button" class="chip" data-v="v1"><span class="brand brand--v1"></span>ChatGPT</button>
+      <button type="button" class="chip" data-v="v2"><span class="brand brand--v2"></span>Gemini</button>
+      <button type="button" class="chip" data-v="v3"><span class="brand brand--v3"></span>Claude</button>
+      <button type="button" class="chip" data-v="v4"><span class="brand brand--v4"></span>Copilot</button>
+    </div>
+  </div>
+
   <p class="tally-hd">収録した用語の数</p>
   <div class="tally-mx">
     <table class="tally-mx-tbl">
@@ -557,50 +601,6 @@ a:hover{color:var(--ink);}
     </table>
   </div>
   <p class="tally-mx-cap">「やりたいこと」17は対応表の行数です。「4社の呼び名」は名称があるセル数で、提供終了も含みます。名称がないセルは数えません。「共通のことば」24は概念の語数で、4社の製品名ではありません。合計は上4つの和です。</p>
-
-  <div class="specimen">
-    <div class="specimen-hd">
-      <div class="specimen-eb">
-        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="8" r="3.1" /><circle cx="16" cy="8" r="3.1" /><circle cx="8" cy="16" r="3.1" /><circle cx="16" cy="16" r="3.1" /></svg>
-        <p class="eyebrow">One feature, four names</p>
-      </div>
-      <p class="specimen-task">会話の横で、文章や資料を直す</p>
-    </div>
-    <div class="specimen-cols">
-      <div class="spec" data-v="v1">
-        <span class="spec-tab"><span class="brand brand--v1"></span>ChatGPT</span>
-        <div class="spec-body"><span class="spec-name">Canvas</span><span class="spec-yomi">キャンバス</span></div>
-      </div>
-      <div class="spec" data-v="v2">
-        <span class="spec-tab"><span class="brand brand--v2"></span>Gemini</span>
-        <div class="spec-body"><span class="spec-name">Canvas</span><span class="spec-yomi">キャンバス</span></div>
-      </div>
-      <div class="spec" data-v="v3">
-        <span class="spec-tab"><span class="brand brand--v3"></span>Claude</span>
-        <div class="spec-body"><span class="spec-name">Artifacts</span><span class="spec-yomi">アーティファクト</span></div>
-      </div>
-      <div class="spec" data-v="v4">
-        <span class="spec-tab"><span class="brand brand--v4"></span>Copilot</span>
-        <div class="spec-body"><span class="spec-name">Copilot Pages</span><span class="spec-yomi">ページ</span></div>
-      </div>
-    </div>
-    <p class="specimen-ft">4社はこの順番・この色・この印で最後まで並びます。下の会社名を押すと、その1社だけを残せます。もう一度押すと戻ります。</p>
-  </div>
-
-  <div class="bar">
-    <div class="bar-field">
-      <svg class="ico ico-ring" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.6" /><path d="M15.4 15.4 21 21" style="fill:none;stroke:currentColor;stroke-width:3.4;stroke-linecap:round" /></svg>
-      <label class="bar-lbl" for="q">用語をさがす</label>
-      <input id="q" data-search="1" type="search" class="bar-input" placeholder="例：キャンバス、Deep Research、トークン" autocomplete="off" />
-      <span class="bar-count" data-count="1"></span>
-    </div>
-    <div class="chips">
-      <button type="button" class="chip" data-v="v1"><span class="brand brand--v1"></span>ChatGPT</button>
-      <button type="button" class="chip" data-v="v2"><span class="brand brand--v2"></span>Gemini</button>
-      <button type="button" class="chip" data-v="v3"><span class="brand brand--v3"></span>Claude</button>
-      <button type="button" class="chip" data-v="v4"><span class="brand brand--v4"></span>Copilot</button>
-    </div>
-  </div>
 </header>
 
 <section class="sec">
@@ -609,7 +609,7 @@ a:hover{color:var(--ink);}
     <h2 class="sec-title">最初のつまずき：同じ言葉が4つの意味を持つ</h2>
     <span class="tag">安定</span>
   </div>
-  <p class="sec-note">「Gemini を使う」と言ったとき、アプリの話かAI本体の話かは文脈でしか分かりません。GoogleとAnthropicは、会社の看板・AI本体・アプリの名前がすべて同じ単語です。この4層を分けないと、以降の表は読めません。</p>
+  <p class="sec-note">1つの機能に4つの名前がつく、というのが表紙の例でした。つまずきはその逆にもあります。「Gemini を使う」と言ったとき、アプリの話かAI本体の話かは文脈でしか分かりません。GoogleとAnthropicは、会社の看板・AI本体・アプリの名前がすべて同じ単語です。この4層を分けないと、以降の表は読めません。</p>
 
   <div class="cards">
     <div class="card">
