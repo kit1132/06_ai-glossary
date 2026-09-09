@@ -59,11 +59,12 @@ git rev-parse --abbrev-ref HEAD
 
 `index.html` を変えたときだけ:
 
+- **先に既存の `chip-new` をすべて削除する。** そのうえで、その回に新しく追加した項目にだけ `<span class="chip-new">New</span>` を付ける（`html-edit.md` の「New バッジ」）
 - `.eyebrow` を `Quick Reference / ${YEAR_MONTH}` にする
 - `.mast-meta` の情報取得時点を実行日の日本語日付にする（例: 2026年8月17日）
 - 件数を数え直して `.tally-n` を合わせる
 
-HEARTBEAT では表紙日付を動かさない。
+HEARTBEAT では表紙日付を動かさない。New バッジも触らない。
 
 ### 5. state を更新する（必須・毎週）
 
