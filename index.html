@@ -62,7 +62,7 @@ a{color:var(--ink);text-underline-offset:2px;}
 a:hover{color:var(--ink-2);}
 :where(a,button,input,summary):focus-visible{outline:2.5px solid var(--v2);outline-offset:2px;border-radius:var(--r-xs);}
 
-.doc{max-width:1120px;margin:0 auto;padding:0 clamp(14px,3.6vw,36px) 88px;}
+.doc{max-width:1120px;margin:0 auto;padding:0 clamp(14px,3.6vw,36px) 88px;overflow-anchor:none;}
 .mono{font-family:var(--f-mono);}
 .nowrap{white-space:nowrap;}
 .eyebrow{
@@ -246,10 +246,16 @@ a:hover{color:var(--ink-2);}
 }
 
 /* ---------- 操作バー ---------- */
+.toc-anchor{height:0;overflow:hidden;scroll-margin-top:0;}
+.dock{
+  position:sticky;top:0;z-index:4;
+  margin:14px 0 22px;padding:8px 0 10px;
+  background:var(--paper);
+}
 .bar{
   display:flex;align-items:center;gap:10px 18px;flex-wrap:wrap;
   background:var(--card);border:1px solid var(--rule);border-radius:var(--r-pill);
-  box-shadow:var(--sh-1);padding:9px 12px 9px 18px;margin:14px 0 clamp(42px,5.6vw,68px);
+  box-shadow:var(--sh-1);padding:9px 12px 9px 18px;margin:0;
 }
 .bar-field{display:flex;align-items:center;gap:9px;flex:1 1 260px;min-width:0;}
 .bar-field .ico{width:16px;height:16px;color:var(--ink-2);}
@@ -259,7 +265,19 @@ a:hover{color:var(--ink-2);}
   font-family:inherit;font-size:15px;color:var(--ink);padding:6px 2px;
 }
 .bar-input::placeholder{color:var(--ink-2);opacity:.8;}
-.bar-input:focus{outline:none;}
+.bar-input:focus,
+.bar-input:focus-visible{outline:2.5px solid var(--v2);outline-offset:3px;border-radius:var(--r-xs);}
+.toc{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+.toc a{
+  flex:0 0 auto;text-decoration:none;color:var(--ink);
+  font-size:12px;font-weight:700;line-height:1.4;
+  border:1px solid var(--rule-2);border-radius:var(--r-pill);
+  background:var(--card);padding:4px 10px 5px;
+}
+.toc a:hover{border-color:var(--ink-2);}
+.sec,.card,tr[data-row],.def,.stamp,.grp,.empty{scroll-margin-top:var(--dock-h,160px);}
+mark.hit,.term.hit{background:var(--sum);color:inherit;padding:0 1px;border-radius:3px;}
+[hidden]{display:none !important;}
 .bar-count{
   font-family:var(--f-mono);font-size:11px;color:var(--ink-2);white-space:nowrap;
   padding:0 2px;
@@ -323,9 +341,20 @@ a:hover{color:var(--ink-2);}
 }
 .card-p{margin:0 0 13px;font-size:12.5px;color:var(--ink-2);line-height:1.8;}
 .card-eg{
+  display:block;
   font-family:var(--f-mono);font-size:11.5px;line-height:1.95;font-weight:600;
   border-top:1px solid var(--rule);padding-top:11px;color:var(--ink);
 }
+.card-go{display:block;color:inherit;text-decoration:none;}
+.card-go:hover .card-h{text-decoration:underline;text-underline-offset:3px;}
+.card:has(.card-go:hover),.card:has(.card-go:focus-visible){border-color:var(--ink-2);}
+.card-eg a{color:inherit;text-decoration:none;}
+.card-eg a:hover{text-decoration:underline;text-underline-offset:2px;}
+.toc-back{
+  font-size:12px;font-weight:700;color:var(--ink-2);text-decoration:none;
+  border-bottom:1px solid var(--rule-2);
+}
+.toc-back:hover{color:var(--ink);}
 .n1{color:var(--v1-ink);}
 .n2{color:var(--v2-ink);}
 .n3{color:var(--v3-ink);}
@@ -340,6 +369,22 @@ a:hover{color:var(--ink-2);}
 .tbl--wide{min-width:800px;}
 .tbl--slim{min-width:640px;}
 .tbl--wide col{width:20%;}
+/* 会社ボタン：選んだ1社の列だけ残し、幅をその列に渡す。
+   セルを display:none にすると列番号がずれ、残した列まで潰れる。 */
+.doc[data-focus] .tbl--wide{table-layout:fixed;min-width:0;}
+.doc[data-focus] .tbl--wide col:first-child{width:24%;}
+.doc[data-focus] .tbl--wide col:not(:first-child){width:76%;}
+.doc[data-focus="v1"] .spec[data-v]:not([data-v="v1"]),
+.doc[data-focus="v2"] .spec[data-v]:not([data-v="v2"]),
+.doc[data-focus="v3"] .spec[data-v]:not([data-v="v3"]),
+.doc[data-focus="v4"] .spec[data-v]:not([data-v="v4"]){display:none;}
+.doc[data-focus="v1"] .tbl--wide col:nth-child(n+3),
+.doc[data-focus="v2"] .tbl--wide col:nth-child(2),
+.doc[data-focus="v2"] .tbl--wide col:nth-child(n+4),
+.doc[data-focus="v3"] .tbl--wide col:is(:nth-child(2),:nth-child(3),:nth-child(5)),
+.doc[data-focus="v4"] .tbl--wide col:is(:nth-child(2),:nth-child(3),:nth-child(4)){
+  width:0;visibility:collapse;
+}
 .tbl thead th{text-align:left;vertical-align:bottom;}
 .h-key{
   font-family:var(--f-display);font-weight:700;padding:14px 14px 13px;
@@ -437,7 +482,7 @@ a:hover{color:var(--ink-2);}
 .def-d{margin:0;font-size:12.5px;color:var(--ink-2);line-height:1.8;}
 .def-d b{color:var(--ink);font-weight:700;}
 .empty{
-  display:none;padding:32px 16px;text-align:center;color:var(--ink-2);font-size:13.5px;
+  display:none;margin:0 0 18px;padding:32px 16px;text-align:center;color:var(--ink-2);font-size:13.5px;
   background:var(--card);border:1px solid var(--rule);border-radius:var(--r);box-shadow:var(--sh-1);
 }
 
@@ -489,12 +534,14 @@ a:hover{color:var(--ink-2);}
   .tbl--slim:has(thead th:nth-child(3)) .r-key{white-space:normal;padding:10px 8px;font-size:12px;}
   .tbl--slim:has(thead th:nth-child(3)) td{padding:10px 8px;}
 
-  /* --- §02–04 広い4社表：1件の見出しの下に4社を横並び --- */
+  .toc{flex-wrap:nowrap;overflow-x:auto;}
+
+  /* --- §02–04 広い4社表：社名と用語を1行ずつ縦に積む --- */
   .tbl--wide{min-width:0;display:block;}
   .tbl--wide thead{display:none;}
   .tbl--wide tbody{display:block;}
   .tbl--wide tbody tr[data-row]{
-    display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+    display:grid;grid-template-columns:minmax(0,1fr);
     margin-bottom:12px;
     border:1px solid var(--rule);border-radius:var(--r);
     background:var(--card);overflow:hidden;
@@ -505,24 +552,34 @@ a:hover{color:var(--ink-2);}
     padding:10px 12px;white-space:normal;
   }
   .tbl--wide tbody td[data-v]{
-    display:block;min-width:0;overflow:visible;
-    border-bottom:0;border-left:1px solid var(--rule);
-    padding:0 5px 8px;
+    display:grid;grid-template-columns:5.5rem minmax(0,1fr);
+    align-items:start;column-gap:10px;row-gap:2px;
+    min-width:0;overflow:visible;
+    border-bottom:0;border-left:0;border-top:1px solid var(--rule);
+    padding:8px 12px 10px;
   }
-  .tbl--wide tbody td[data-v="v1"]{border-left:0;}
+  .tbl--wide tbody td[data-v="v1"]{border-top:0;}
   .tbl--wide tbody td[data-v]::before{
-    display:block;margin:0 -5px 6px;padding:5px 2px 4px;
-    font-family:var(--f-display);font-weight:700;font-size:9px;line-height:1.2;
-    text-align:center;overflow-wrap:anywhere;
+    grid-column:1;grid-row:1 / span 4;align-self:start;
+    margin:0;padding:2px 0 0 8px;
+    font-family:var(--f-display);font-weight:700;font-size:12.5px;line-height:1.35;
+    text-align:left;overflow-wrap:normal;
   }
-  .tbl--wide tbody td[data-v="v1"]::before{content:"ChatGPT";color:var(--v1-ink);box-shadow:inset 0 3px 0 var(--v1);}
-  .tbl--wide tbody td[data-v="v2"]::before{content:"Gemini";color:var(--v2-ink);box-shadow:inset 0 3px 0 var(--v2);}
-  .tbl--wide tbody td[data-v="v3"]::before{content:"Claude";color:var(--v3-ink);box-shadow:inset 0 3px 0 var(--v3);}
-  .tbl--wide tbody td[data-v="v4"]::before{content:"Copilot";color:var(--v4-ink);box-shadow:inset 0 3px 0 var(--v4);}
-  .tbl--wide tbody td[data-v] .term{font-size:11px;}
-  .tbl--wide tbody td[data-v] .term.ja{font-size:11px;}
-  .tbl--wide tbody td[data-v] .gloss{font-size:10px;line-height:1.45;}
+  .tbl--wide tbody td[data-v="v1"]::before{content:"ChatGPT";color:var(--v1-ink);box-shadow:inset 3px 0 0 var(--v1);}
+  .tbl--wide tbody td[data-v="v2"]::before{content:"Gemini";color:var(--v2-ink);box-shadow:inset 3px 0 0 var(--v2);}
+  .tbl--wide tbody td[data-v="v3"]::before{content:"Claude";color:var(--v3-ink);box-shadow:inset 3px 0 0 var(--v3);}
+  .tbl--wide tbody td[data-v="v4"]::before{content:"Copilot";color:var(--v4-ink);box-shadow:inset 3px 0 0 var(--v4);}
+  .tbl--wide tbody td[data-v] > *{grid-column:2;min-width:0;}
+  .tbl--wide tbody td[data-v] .term{font-size:15px;}
+  .tbl--wide tbody td[data-v] .term.ja{font-size:15px;}
+  .tbl--wide tbody td[data-v] .gloss{font-size:12.5px;line-height:1.55;margin-top:2px;}
   .tbl--wide .price{white-space:normal;}
+  .doc[data-focus] .tbl--wide tbody td[data-v] .term,
+  .doc[data-focus] .tbl--wide tbody td[data-v] .term.ja{font-size:17px;}
+  .doc[data-focus="v1"] .tbl--wide [data-v]:not([data-v="v1"]),
+  .doc[data-focus="v2"] .tbl--wide [data-v]:not([data-v="v2"]),
+  .doc[data-focus="v3"] .tbl--wide [data-v]:not([data-v="v3"]),
+  .doc[data-focus="v4"] .tbl--wide [data-v]:not([data-v="v4"]){display:none;}
 
   /* --- §07 ルール表（2列）：行カード型 --- */
   .tbl--slim:not(:has(thead th:nth-child(3))){min-width:0;display:block;}
@@ -547,10 +604,29 @@ a:hover{color:var(--ink-2);}
 @media print{
   @page{size:A4;margin:0.5in;}
   body{background:#FFFFFF;}
-  .doc{max-width:none;padding:0;}
-  .bar,.actions{display:none;}
-  .mast,.specimen,.card,.tblbox,.stamp,.def,.colophon,.tally-mx{box-shadow:none;}
+  .doc{max-width:none;padding:0 !important;}
+  .bar,.actions,.toc,.toc-back{display:none;}
+  .dock{position:static;margin:0;padding:0;}
+  .doc[data-focus="v1"] .tbl--wide [data-v]:not([data-v="v1"]),
+  .doc[data-focus="v2"] .tbl--wide [data-v]:not([data-v="v2"]),
+  .doc[data-focus="v3"] .tbl--wide [data-v]:not([data-v="v3"]),
+  .doc[data-focus="v4"] .tbl--wide [data-v]:not([data-v="v4"]){display:table-cell;}
+  .doc[data-focus="v1"] .spec[data-v]:not([data-v="v1"]),
+  .doc[data-focus="v2"] .spec[data-v]:not([data-v="v2"]),
+  .doc[data-focus="v3"] .spec[data-v]:not([data-v="v3"]),
+  .doc[data-focus="v4"] .spec[data-v]:not([data-v="v4"]){display:block;}
+  .doc[data-focus] .tbl--wide col,
+  .doc[data-focus] .tbl--wide col:first-child,
+  .doc[data-focus] .tbl--wide col:not(:first-child),
+  .doc[data-focus="v1"] .tbl--wide col:nth-child(n+3),
+  .doc[data-focus="v2"] .tbl--wide col:nth-child(2),
+  .doc[data-focus="v2"] .tbl--wide col:nth-child(n+4),
+  .doc[data-focus="v3"] .tbl--wide col:is(:nth-child(2),:nth-child(3),:nth-child(5)),
+  .doc[data-focus="v4"] .tbl--wide col:is(:nth-child(2),:nth-child(3),:nth-child(4)){
+    width:20%;visibility:visible;
+  }
   *{print-color-adjust:exact;-webkit-print-color-adjust:exact;}
+  .mast,.specimen,.card,.tblbox,.stamp,.def,.colophon,.tally-mx{box-shadow:none;}
   p{orphans:3;widows:3;}
 
   /* 節・表全体を1ページに押し込めない（収まらないと空白か途中切れになる） */
@@ -619,12 +695,16 @@ a:hover{color:var(--ink-2);}
     </div>
   </div>
 
+</header>
+
+<div id="toc" class="toc-anchor"></div>
+<div class="dock">
   <div class="bar">
     <div class="bar-field">
       <svg class="ico ico-ring" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.6" /><path d="M15.4 15.4 21 21" style="fill:none;stroke:currentColor;stroke-width:3.4;stroke-linecap:round" /></svg>
       <label class="bar-lbl" for="q">用語をさがす</label>
-      <input id="q" data-search="1" type="search" class="bar-input" placeholder="例：キャンバス、Deep Research、トークン" autocomplete="off" />
-      <span class="bar-count" data-count="1"></span>
+      <input id="q" data-search="1" type="search" class="bar-input" placeholder="例：キャンバス、Deep Research、トークン" autocomplete="off" enterkeyhint="search" />
+      <span class="bar-count" data-count="1" aria-live="polite"></span>
     </div>
     <div class="chips">
       <button type="button" class="chip" data-v="v1"><span class="brand brand--v1"></span>ChatGPT</button>
@@ -633,40 +713,61 @@ a:hover{color:var(--ink-2);}
       <button type="button" class="chip" data-v="v4"><span class="brand brand--v4"></span>Copilot</button>
     </div>
   </div>
-</header>
+  <nav class="toc" aria-label="節">
+    <a href="#s00" title="はじめに：この表が答えること">00 はじめに</a>
+    <a href="#s01" title="最初のつまずき：同じ言葉が4つの意味を持つ">01 4つの意味</a>
+    <a href="#s02" title="やりたいこと → 4社の呼び名">02 呼び名</a>
+    <a href="#s03" title="AI本体（モデル）の名前">03 モデル</a>
+    <a href="#s04" title="個人向けプランの料金">04 料金</a>
+    <a href="#s05" title="昔の名前で書かれた記事を読んでいるとき">05 改名</a>
+    <a href="#s06" title="4社に共通することば">06 共通語</a>
+    <a href="#s07" title="日本で仕事に使うときのルール">07 ルール</a>
+  </nav>
+</div>
+<p class="empty" data-empty="1" role="status">その言葉は見つかりませんでした。ひらがな・カタカナ・英語を変えて試してください。</p>
 
-<section class="sec">
+<main>
+<section class="sec" id="s00">
   <div class="sec-hd">
     <span class="sec-no">00</span>
     <h2 class="sec-title">はじめに：この表が答えること</h2>
+    <a class="toc-back" href="#toc">目次</a>
     <span class="tag">安定</span>
   </div>
   <p class="sec-note">この表が答えるのは<span class="nowrap">「あの機能は、この会社では何と&#x2060;呼ぶのか」</span>の一点です。用語の意味を集めた辞典ではなく、<b>4社の&#x2060;呼び名を突き合わせるための対応表</b>です。全体は 01&nbsp;から&nbsp;07 までの7つの節でできていますが、<b>上から順に読む必要はありません。</b>いま困っている場面から、下の4つのどれかに進んでください。</p>
 
   <div class="cards">
     <div class="card">
-      <span class="card-no">CASE 1</span>
-      <h3 class="card-h">呼び名を引く</h3>
-      <p class="card-p">やりたいことは決まっているのに、その会社での名前が出てこないとき。表紙の検索&#x2060;窓に打ち込んでも引けます。</p>
-      <div class="card-eg">02 やりたいこと → 4社の呼び名</div>
+      <a class="card-go" href="#s02">
+        <span class="card-no">CASE 1</span>
+        <h3 class="card-h">呼び名を引く</h3>
+        <p class="card-p">やりたいことは決まっているのに、その会社での名前が出てこないとき。表紙の検索&#x2060;窓に打ち込んでも引けます。</p>
+        <span class="card-eg">02 やりたいこと → 4社の呼び名</span>
+      </a>
     </div>
     <div class="card">
-      <span class="card-no">CASE 2</span>
-      <h3 class="card-h">性能と料金を比べる</h3>
-      <p class="card-p">どのAI本体が上位なのか、月にいくら払うと何が付くのかを見るとき。この2節はよく動きます。</p>
-      <div class="card-eg">03 AI本体（モデル）の名前<br />04 個人向けプランの料金</div>
+      <a class="card-go" href="#s03">
+        <span class="card-no">CASE 2</span>
+        <h3 class="card-h">性能と料金を比べる</h3>
+        <p class="card-p">どのAI本体が上位なのか、月にいくら払うと何が付くのかを見るとき。この2節はよく動きます。</p>
+      </a>
+      <div class="card-eg"><a href="#s03">03 AI本体（モデル）の名前</a><br /><a href="#s04">04 個人向けプランの料金</a></div>
     </div>
     <div class="card">
-      <span class="card-no">CASE 3</span>
-      <h3 class="card-h">古い記事を読み直す</h3>
-      <p class="card-p">解説記事に出てくる名前が、今の画面に見当たらないとき。2025年から2026年の改名を引き直せます。</p>
-      <div class="card-eg">05 昔の名前で書かれた記事</div>
+      <a class="card-go" href="#s05">
+        <span class="card-no">CASE 3</span>
+        <h3 class="card-h">古い記事を読み直す</h3>
+        <p class="card-p">解説記事に出てくる名前が、今の画面に見当たらないとき。2025年から2026年の改名を引き直せます。</p>
+        <span class="card-eg">05 昔の名前で書かれた記事</span>
+      </a>
     </div>
     <div class="card">
-      <span class="card-no">CASE 4</span>
-      <h3 class="card-h">意味とルールを知る</h3>
-      <p class="card-p">4社に共通する言葉の意味と、日本で仕事に使うときの決まりごと。社内で説明する前に。</p>
-      <div class="card-eg">06 4社に共通することば<br />07 日本で仕事に使うときのルール</div>
+      <a class="card-go" href="#s06">
+        <span class="card-no">CASE 4</span>
+        <h3 class="card-h">意味とルールを知る</h3>
+        <p class="card-p">4社に共通する言葉の意味と、日本で仕事に使うときの決まりごと。社内で説明する前に。</p>
+      </a>
+      <div class="card-eg"><a href="#s06">06 4社に共通することば</a><br /><a href="#s07">07 日本で仕事に使うときのルール</a></div>
     </div>
   </div>
   <h3 class="tally-hd">収録した用語の数</h3>
@@ -731,10 +832,11 @@ a:hover{color:var(--ink-2);}
   <p class="sec-foot"><b>節の右肩のタグは、その内容がどれくらいで古くなるかの目安です。</b>「安定」は年単位で変わりません。「中期」は年に何度か動きます。「揮発」はモデル名と料金で、数週間で変わるため、引用する前に各社の公式ページで確かめて&#x2060;ください。まず 01 を読むと、以降の表を読む前提が分かります。</p>
 </section>
 
-<section class="sec">
+<section class="sec" id="s01">
   <div class="sec-hd">
     <span class="sec-no">01</span>
     <h2 class="sec-title">最初のつまずき：同じ言葉が4つの意味を持つ</h2>
+    <a class="toc-back" href="#toc">目次</a>
     <span class="tag">安定</span>
   </div>
   <p class="sec-note">同じ機能に4つの名前がつくのがこの表の前提です。つまずきはその逆にもあります。「Gemini を使う」と言った&#x2060;とき、アプリの話かAI本体の話かは文脈でしか分かりません。GoogleとAnthropicは、会社の看板・AI本体・アプリの名前がすべて同じ単語です。この4層を分けないと、以降の表は読めません。</p>
@@ -768,10 +870,11 @@ a:hover{color:var(--ink-2);}
   <p class="sec-foot"><b>Copilot だけ構造が違います。</b>Microsoft は自社のAI本体を持たず、OpenAI&nbsp;と&nbsp;Anthropic のモデルを切り替えて使っています。「Copilot」は看板の名前であって、AI本体の名前ではありません。</p>
 </section>
 
-<section class="sec">
+<section class="sec" id="s02">
   <div class="sec-hd">
     <span class="sec-no">02</span>
     <h2 class="sec-title">やりたいこと → 4社の呼び名</h2>
+    <a class="toc-back" href="#toc">目次</a>
     <span class="tag">中期</span>
   </div>
   <p class="sec-note">左の列から探してください。<b>同じ行に並んでいても、できることの範囲は同じではありません。</b>「使う場所が同じ」と&#x2060;いう意味であって、置き換えられると&#x2060;いう意味ではない点に注意してください。</p>
@@ -915,10 +1018,11 @@ a:hover{color:var(--ink-2);}
   </div>
 </section>
 
-<section class="sec">
+<section class="sec" id="s03">
   <div class="sec-hd">
     <span class="sec-no">03</span>
     <h2 class="sec-title">AI本体（モデル）の名前</h2>
+    <a class="toc-back" href="#toc">目次</a>
     <span class="tag tag--hot">揮発・数週間で変わります</span>
   </div>
   <p class="sec-note">上に行くほど賢く、下に行くほど速くて安い、という並びです。<b>無料プランでも最上位に触れる会社が増えました</b>が、使える回数は厳しく制限されます。</p>
@@ -971,10 +1075,11 @@ a:hover{color:var(--ink-2);}
   </div>
 </section>
 
-<section class="sec">
+<section class="sec" id="s04">
   <div class="sec-hd">
     <span class="sec-no">04</span>
     <h2 class="sec-title">個人向けプランの料金</h2>
+    <a class="toc-back" href="#toc">目次</a>
     <span class="tag tag--hot">揮発・必ず公式で確認</span>
   </div>
   <p class="sec-note">すべて米ドルの月額です。<b>Copilot だけ性質が違います。</b>Microsoft の個人向けは単独のAI契約ではなく、Word&nbsp;や&nbsp;Excel とストレージが付いた Microsoft&nbsp;365 のプランに含まれる形です。同じ約20ドルでも中身が違うため、横並びでは比べられません。</p>
@@ -1046,10 +1151,11 @@ a:hover{color:var(--ink-2);}
   </div>
 </section>
 
-<section class="sec">
+<section class="sec" id="s05">
   <div class="sec-hd">
     <span class="sec-no">05</span>
     <h2 class="sec-title">昔の名前で書かれた記事を読んでいるとき</h2>
+    <a class="toc-back" href="#toc">目次</a>
     <span class="tag">中期</span>
   </div>
   <p class="sec-note">2025年から2026年にかけて改名が続きました。ネットの解説記事は古い名前のまま残っているものが多いので、ここで引き直してください。</p>
@@ -1093,10 +1199,11 @@ a:hover{color:var(--ink-2);}
   </div>
 </section>
 
-<section class="sec">
+<section class="sec" id="s06">
   <div class="sec-hd">
     <span class="sec-no">06</span>
     <h2 class="sec-title">4社に共通することば</h2>
+    <a class="toc-back" href="#toc">目次</a>
     <span class="tag">安定</span>
   </div>
   <p class="sec-note">どのツールを使っても出てくる言葉です。上の&#x2060;検索&#x2060;窓でも絞り込めます。</p>
@@ -1148,14 +1255,13 @@ a:hover{color:var(--ink-2);}
       <div class="def" data-gitem="1"><dt class="def-t">C2PA / Content Credentials</dt><dd class="def-d">画像や動画の出どころと編集履歴を、署名付きで記録する業界標準。</dd></div>
     </dl>
   </div>
-
-  <div class="empty" data-empty="1">その言葉は見つかりませんでした。ひらがな・カタカナ・英語を変えて試してください。</div>
 </section>
 
-<section class="sec">
+<section class="sec" id="s07">
   <div class="sec-hd">
     <span class="sec-no">07</span>
     <h2 class="sec-title">日本で仕事に使うときのルール</h2>
+    <a class="toc-back" href="#toc">目次</a>
     <span class="tag">中期</span>
   </div>
   <p class="sec-note">海外の規制より先に、国内の枠組みを押さえてください。</p>
@@ -1178,6 +1284,7 @@ a:hover{color:var(--ink-2);}
     </table>
   </div>
 </section>
+</main>
 
 <footer class="colophon">
   <p><b>この表の限界</b></p>
@@ -1210,10 +1317,21 @@ a:hover{color:var(--ink-2);}
   if (pb) pb.addEventListener('click', () => window.print());
   const sb = r.querySelector('[data-save]');
   if (sb) sb.addEventListener('click', () => saveHtml(sb));
+  window.addEventListener('resize', dockPad);
+  dockPad();
 
   function saveHtml(btn) {
     const doc = document.documentElement.cloneNode(true);
+    const root = doc.querySelector('.doc');
+    if (root) {
+      root.removeAttribute('data-focus');
+      root.style.paddingBottom = '';
+    }
+    doc.querySelectorAll('.tbl--wide [data-v][aria-hidden]').forEach(el => el.removeAttribute('aria-hidden'));
     doc.querySelectorAll('script, template, .bar, .actions').forEach(n => n.remove());
+    doc.querySelectorAll('[hidden]').forEach(el => { el.hidden = false; });
+    doc.querySelectorAll('mark.hit').forEach(m => { m.replaceWith(m.textContent); });
+    doc.querySelectorAll('.term.hit').forEach(el => el.classList.remove('hit'));
     doc.querySelectorAll('[data-v]').forEach(el => { el.style.opacity = ''; });
     doc.querySelectorAll('[data-row],[data-gitem],[data-group]').forEach(el => { el.style.display = ''; });
     const empty = doc.querySelector('[data-empty]');
@@ -1239,43 +1357,200 @@ a:hover{color:var(--ink-2);}
   }
 
   function applyFocus() {
-    r.querySelectorAll('[data-v]').forEach(el => {
-      const on = !focus || el.getAttribute('data-v') === focus;
-      if (el.tagName === 'BUTTON') {
-        el.setAttribute('aria-pressed', focus && on ? 'true' : 'false');
-      } else {
-        el.style.opacity = on ? '1' : '0.2';
-      }
+    if (focus) r.setAttribute('data-focus', focus);
+    else r.removeAttribute('data-focus');
+    r.querySelectorAll('button[data-v]').forEach(btn => {
+      btn.setAttribute('aria-pressed', focus === btn.getAttribute('data-v') ? 'true' : 'false');
     });
+    r.querySelectorAll('.tbl--wide [data-v]').forEach(el => {
+      if (focus && el.getAttribute('data-v') !== focus) el.setAttribute('aria-hidden', 'true');
+      else el.removeAttribute('aria-hidden');
+    });
+    if (q && norm(q.value).length) runSearch(q.value);
+    else dockPad();
+  }
+
+  function dockPad() {
+    const dock = r.querySelector('.dock');
+    if (!dock) return;
+    document.documentElement.style.setProperty('--dock-h', (dock.offsetHeight + 16) + 'px');
+  }
+
+  function isSkip(ch) {
+    return /[・\sー]/.test(ch) || ch === '\u2060';
+  }
+
+  function foldChar(ch) {
+    const oc = ch.charCodeAt(0);
+    if (oc >= 0x30A1 && oc <= 0x30F6) return String.fromCharCode(oc - 0x60);
+    return ch.toLowerCase();
   }
 
   function norm(s) {
-    return String(s).toLowerCase()
-      .replace(/[ァ-ヶ]/g, c => String.fromCharCode(c.charCodeAt(0) - 0x60))
-      .replace(/[・\sー]/g, '');
+    let out = '';
+    for (let i = 0; i < s.length; i++) {
+      if (isSkip(s[i])) continue;
+      out += foldChar(s[i]);
+    }
+    return out;
   }
 
+  function normParts(s) {
+    let folded = '';
+    const map = [];
+    for (let i = 0; i < s.length; i++) {
+      if (isSkip(s[i])) continue;
+      folded += foldChar(s[i]);
+      map.push(i);
+    }
+    return { folded, map };
+  }
+
+  function clearMarks(root) {
+    root.querySelectorAll('mark.hit').forEach(m => {
+      const parent = m.parentNode;
+      m.replaceWith(document.createTextNode(m.textContent));
+      if (parent) parent.normalize();
+    });
+    root.querySelectorAll('.term.hit').forEach(el => el.classList.remove('hit'));
+  }
+
+  function markNode(node, k) {
+    const text = node.nodeValue;
+    if (!text) return;
+    const parts = normParts(text);
+    const ranges = [];
+    let from = 0;
+    while (from <= parts.folded.length - k.length) {
+      const at = parts.folded.indexOf(k, from);
+      if (at < 0) break;
+      ranges.push([parts.map[at], parts.map[at + k.length - 1] + 1]);
+      from = at + k.length;
+    }
+    if (!ranges.length) return;
+    const frag = document.createDocumentFragment();
+    let cursor = 0;
+    ranges.forEach(pair => {
+      const a = pair[0];
+      const b = pair[1];
+      if (a > cursor) frag.appendChild(document.createTextNode(text.slice(cursor, a)));
+      const mark = document.createElement('mark');
+      mark.className = 'hit';
+      mark.textContent = text.slice(a, b);
+      frag.appendChild(mark);
+      cursor = b;
+    });
+    if (cursor < text.length) frag.appendChild(document.createTextNode(text.slice(cursor)));
+    node.parentNode.replaceChild(frag, node);
+  }
+
+  function highlightEl(el, k) {
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        if (!node.nodeValue || !norm(node.nodeValue)) return NodeFilter.FILTER_REJECT;
+        const parent = node.parentElement;
+        if (parent && parent.closest('mark, script, style, [hidden]')) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(node => markNode(node, k));
+    el.querySelectorAll('[hidden]').forEach(hidden => {
+      if (norm(hidden.textContent).indexOf(k) === -1) return;
+      const term = hidden.parentElement && hidden.parentElement.querySelector('.term');
+      if (term && !term.closest('[hidden]')) term.classList.add('hit');
+    });
+  }
+
+  function unitText(unit) {
+    if (!focus || !unit.matches('[data-row]')) return unit.textContent;
+    const cell = unit.querySelector('[data-v="' + focus + '"]');
+    if (!cell) return unit.textContent;
+    const key = unit.querySelector('.r-key');
+    return (key ? key.textContent : '') + '\n' + cell.textContent;
+  }
+
+  let lastTarget = null;
+  let scrollGen = 0;
+
+  function go(el) {
+    if (!el) {
+      lastTarget = null;
+      return;
+    }
+    if (el === lastTarget) return;
+    lastTarget = el;
+    const gen = scrollGen;
+    requestAnimationFrame(() => {
+      if (gen !== scrollGen) return;
+      dockPad();
+      const dock = r.querySelector('.dock');
+      const pad = dock ? dock.offsetHeight + 16 : 0;
+      let top = el.getBoundingClientRect().top + window.scrollY - pad;
+      if (el.matches && el.matches('tr')) {
+        const prev = el.previousElementSibling;
+        const firstShown = !prev || prev.hidden || !prev.matches('tr');
+        const head = firstShown && el.closest('table') && el.closest('table').querySelector('thead');
+        if (head && getComputedStyle(head).display !== 'none') top -= head.getBoundingClientRect().height;
+      }
+      window.scrollTo(0, Math.max(0, top));
+    });
+  }
+
+  const UNIT = '[data-row], [data-gitem], .card, .stamp, .sec-note, .sec-foot, .tally-mx, .tally-hd, .tally-mx-cap';
+
   function runSearch(value) {
+    const y = window.scrollY;
+    const gen = ++scrollGen;
+    clearMarks(r);
     const k = norm(value.trim());
     let hits = 0;
-    r.querySelectorAll('[data-row]').forEach(row => {
-      const on = !k || norm(row.textContent).indexOf(k) !== -1;
-      row.style.display = on ? '' : 'none';
-      if (on) hits++;
-    });
-    r.querySelectorAll('[data-gitem]').forEach(it => {
-      const on = !k || norm(it.textContent).indexOf(k) !== -1;
-      it.style.display = on ? '' : 'none';
-      if (on) hits++;
-    });
-    r.querySelectorAll('[data-group]').forEach(g => {
-      const any = Array.from(g.querySelectorAll('[data-gitem]')).some(i => i.style.display !== 'none');
-      g.style.display = any ? '' : 'none';
+    let first = null;
+    r.querySelectorAll('.sec').forEach(sec => {
+      const title = sec.querySelector('.sec-title');
+      const titleMatch = !!(k && title && norm(title.textContent).indexOf(k) !== -1);
+      let selfHits = 0;
+      let firstUnit = null;
+      sec.querySelectorAll(UNIT).forEach(unit => {
+        const self = !!(k && norm(unitText(unit)).indexOf(k) !== -1);
+        unit.hidden = !!(k && !titleMatch && !self);
+        if (self) {
+          selfHits++;
+          if (!firstUnit) firstUnit = unit;
+          if (!titleMatch) highlightEl(unit, k);
+        }
+      });
+      sec.querySelectorAll('[data-group]').forEach(g => {
+        const any = Array.from(g.querySelectorAll('[data-gitem]')).some(i => !i.hidden);
+        g.hidden = !any;
+      });
+      const show = !k || titleMatch || selfHits > 0;
+      sec.hidden = !show;
+      if (titleMatch) {
+        highlightEl(sec, k);
+        hits += selfHits || 1;
+        if (!first) first = sec;
+      } else if (selfHits) {
+        hits += selfHits;
+        if (!first) first = firstUnit;
+      }
     });
     const c = r.querySelector('[data-count]');
     if (c) c.textContent = k ? hits + ' 件' : '';
     const e = r.querySelector('[data-empty]');
     if (e) e.style.display = (k && hits === 0) ? 'block' : 'none';
+    r.style.paddingBottom = k ? '100vh' : '';
+    dockPad();
+    if (k && hits === 0) go(e);
+    else if (k) go(first);
+    else {
+      lastTarget = null;
+      requestAnimationFrame(() => {
+        if (gen !== scrollGen) return;
+        window.scrollTo(0, y);
+      });
+    }
   }
 })();
 </script>
